@@ -1,0 +1,21 @@
+
+    .tabelaSmall{
+        font-size: smaller;
+    
+    };
+
+    .placeholderBorder{
+        background-color: black;
+    };
+
+@media (max-width:480px) {
+    
+
+
+    .fa-bars{
+        color: aliceblue;
+
+    }
+
+   
+}
