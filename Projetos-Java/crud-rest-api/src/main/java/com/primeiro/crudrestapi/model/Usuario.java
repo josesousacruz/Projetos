@@ -9,14 +9,18 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_usuario" )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private Long id;
+    @Column
     private String nome;
+    @Column
     private int idade;
+
 
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;

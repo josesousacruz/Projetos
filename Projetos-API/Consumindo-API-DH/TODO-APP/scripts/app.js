@@ -30,7 +30,7 @@ window.onload = function() {
             password: senhaDoUsuario
         }
 
-        console.log('passei');
+        //console.log('passei');
 
         // Requisição de autenticação do usuário.
         loginUsuario(credenciaisDoUsuario);
@@ -57,7 +57,7 @@ window.onload = function() {
                 if (!respostaDoServidor.ok) {
                     throw new Error('Login ou senha incorretos!');
                 } 
-                //console.log(respostaDoServidor.status);
+                console.log(respostaDoServidor.status);
 
                 if (respostaDoServidor.status >= 400 && respostaDoServidor.status < 600) {
                     throw new Error('Erro de resposta do servidor!')

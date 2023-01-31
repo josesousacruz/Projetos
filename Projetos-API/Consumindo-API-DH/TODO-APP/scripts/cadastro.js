@@ -1,5 +1,4 @@
     const API_URL = 'https://ctd-todo-api.herokuapp.com/v1';
-
     // CRUD - CRIAR USUARIO
     function cadastrarUser (){
         // Função é acionada no DOM pega valores do input e aciona a função CriarUmUsuario passando a const usuario
@@ -27,7 +26,7 @@
             },
         }
         // API_URL('https://ctd-todo-api.herokuapp.com/v1')
-        fetch(`${API_URL}/users/`, configuracoes)
+        fetch(`${API_LOCAL}/salvar/`, configuracoes)
             .then(function (respostaDoServidor) {
                 
                 if (!respostaDoServidor.ok) {
@@ -42,7 +41,7 @@
                 // Retorno apenas dos dados convertidos em JSON.
                 let JSON = respostaDoServidor.json();
                 // Nota: Você pode ter acesso ao corpo da informação sem convertê-la:
-                // respostaDoServidor.body(); 
+                console.log(respostaDoServidor.body())  
 
                 // Retorno da promessa convertida em JSON.
                 return JSON;
@@ -59,9 +58,13 @@
             })
             .catch(function(Error){
                 alert(Error.message);
-                limparForm();
+               // limparForm();
             });
     }
+
+
+
+
 
     function limparForm(){
         window.focus();

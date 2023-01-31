@@ -80,7 +80,7 @@
             });
     }
 
-    function updadeTabela(){
+    function updadeTabela(){    
         limparTarefas()
         const tarefas = JSON.parse(localStorage.getItem("tarefas")) ?? []
         tarefas.sort(function(x, y) {
@@ -169,7 +169,7 @@
             },
         }
 
-        // URL(https://jsonplaceholder.typicode.com/posts/1)
+        
         fetch(`${API_URL}/tasks/${idDaTarefa}`, configuracoes)
             .then(function (respostaDoServidor) {
                             
