@@ -95,7 +95,6 @@
         listaHTML.innerHTML = `
         <div class=" card-body m-1 card-md-3 shadow border rounded" style="width: 22.7rem;">
 
-
         
         <p class="card-text text-lg text-justify" id="desc${tarefas.id}" >${tarefas.description}</p>
 

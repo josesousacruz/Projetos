@@ -10,10 +10,10 @@
 	<head>
 	<body>
 		<?php
-		// Definimos o nome do arquivo que será exportado
+		// Nome do arquivo que será exportado
 		$arquivo = 'Relatorio.xls';
 		
-		// Criamos uma tabela HTML com o formato da planilha
+		// Tabela HTML com o formato da planilha
 		$html = '';
 		$html .= '<table border="1">';
 		$html .= '<tr>';

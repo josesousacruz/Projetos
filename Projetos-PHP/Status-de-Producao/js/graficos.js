@@ -112,7 +112,6 @@ function retornaMetaDia(){
                   carregadoEmGranel.push(data[i].carregadoEmGranel);
                   totalVeiculosCarregados.push(data[i].totalVeiculosCarregados);
                   
-            
                   
 
               }
@@ -179,7 +178,6 @@ function retornaMetaDia(){
     document.getElementById('MetaDiaria').appendChild(labelMeta)
 
 
-
   }
   
 
@@ -242,20 +240,12 @@ function graficoBar (datachegada, quantidade){
         borderColor: 'rgb(255, 99, 132)',
         data: retornaMetaDia()
 
-
-
-
-
     },{
 
         label: 'Executado',
         backgroundColor: 'rgb(47,79,79)',
         borderColor: 'rgb(255, 99, 132)',
         data: quantidade
-
-        
-  
-
 
         
     }],
@@ -279,9 +269,7 @@ function graficoBar (datachegada, quantidade){
   };
 
   const myChart = new Chart(
-    document.getElementById('myBarChart'),
-    config
-  );
+    document.getElementById('myBarChart'), config );
   
 
 }
