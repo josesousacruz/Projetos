@@ -13,7 +13,7 @@ export default function App() {
 
     const [listaItens, setlistaItens] = useState([])
 
-    const listaItensStorage = JSON.parse(localStorage.getItem('cad_livro')) ?? []
+    // const listaItensStorage = JSON.parse(localStorage.getItem('cad_livro')) ?? []
 
     // setlistaItens([listaItensStorage])
 
@@ -59,6 +59,16 @@ export default function App() {
 
         const result = listaItens.filter((obj) => obj.id !== id)
         setlistaItens(result)
+
+
+        setData(
+            {
+                Titulo: '',
+                Categoria: '',
+                Data: '',
+                Descr: ''
+            }
+            )
 
     }
 
@@ -145,7 +155,9 @@ export default function App() {
                     <label htmlFor=''>Descrição</label>
                     <input name="Descr" value={data.Descr} onChange={handleChange} />
                 </div>
-                <button onClick={data.id ? handleSave : handleClick} disabled={calculateProress() !== 100} > Enviar Formulário</button>
+                <button onClick={data.id ? handleSave : handleClick} disabled={calculateProress() !== 100} >
+                   {data.id ? "Editar": "Salvar"}  
+                </button>
             </main>
 
 
