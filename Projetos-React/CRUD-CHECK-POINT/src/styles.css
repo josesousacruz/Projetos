@@ -90,23 +90,19 @@
     width: 100%;
     font-size: 16px;
     color: #151515;
-    /* background-color: #535bf2; */
+    background-color: #535bf2;
   }
   
-  button:hover {
-    background: #ddd;
-    cursor: pointer;
-  }
   button:active {
-    background: #333;
+    background-color: #535bf2;
     color: white;
   }
+
   button:disabled {
-    color: #aaa;
+    color: #1a1717;
+    background-color: #e8dede
   }
-  button:disabled:hover {
-    background: #fafafa;
-  }
+
   
   .form-group {
     display: flex;
