@@ -11,7 +11,7 @@ function Main() {
 
 
   const onRemove = (todo)=>{
-    setLista(lista.filter((obj)=> obj.id !== todo.id));
+    setLista(lista.filter((obj)=> obj.id !== todo.id)); 
     console.log("remove", todo.title)
   }
 

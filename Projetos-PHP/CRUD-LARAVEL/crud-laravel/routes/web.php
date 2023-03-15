@@ -27,3 +27,29 @@ Route::post('/newuser', function (Request $request) {
     ]);
      return view('welcome');
 });
+
+Route::get('/userbyid/{idUser}', function ($idUser) {
+  return User::findOrFail($idUser);
+
+});
+
+Route::get('/alluser', function (){
+   return User::all();
+});
+
+
+Route::get('/edituser/{idUser}', function ($idUser) {
+   $User = User::findOrFail($idUser);
+    return view('/editUser',['user'=>$User]);
+  });
+
+  Route::put('/updateuser/{idUser}', function (Request $info, $idUser) {
+    $User = User::findOrFail($idUser);
+     
+    $User->name = $info->name;
+    $User->phone = $info->phone;
+
+    $User->save();
+
+    return view('welcome');
+   });

@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-
-
 function App() {
 
   const [data, setData] = useState(
@@ -19,7 +17,6 @@ function App() {
 
     setData((prev) => {
       const newData = { ...prev, [name]: value }
-
 
       return newData
     })
@@ -59,6 +56,7 @@ function App() {
   }
 
   const handleClick = () => {
+    //Implementar o envio fo form
     alert("Formulario enviado")
 
     setData( 
