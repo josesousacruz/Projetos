@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function App() {
 
     const [data, setData] = useState(
+        //State com um objeto contendo os campos do form
         {
             Titulo: '',
             Categoria: '',
@@ -12,13 +13,13 @@ export default function App() {
     )
 
     const [listaItens, setlistaItens] = useState([])
+    //State contendo array que vai armazenar os itens
 
     // const listaItensStorage = JSON.parse(localStorage.getItem('cad_livro')) ?? []
 
-    // setlistaItens([listaItensStorage])
-
-
     const handleClick = () => {
+        //função que vai setar para lista de itens, tds os objetos da lista atual,
+        // mais um novo item com as informações contidas no state data
         setlistaItens([...listaItens,
         {
             id: new Date().getTime(),
@@ -28,9 +29,10 @@ export default function App() {
             Descr: data.Descr
         }])
 
-        localStorage.setItem('cad_livro', JSON.stringify([...listaItens,data]))
+        // localStorage.setItem('cad_livro', JSON.stringify([...listaItens,data]))
 
         setData(
+            //Zera novamente os valores do state data
             {
                 Titulo: '',
                 Categoria: '',
@@ -45,19 +47,23 @@ export default function App() {
 
 
     const handleChange = (event) => {
+        //função vai ser chamada no metodo onChange de cada input
 
         const { name, value } = event.target;
+        // vai pegar o nome e valor do input onde foi acionada o metodo
 
         setData((prev) => {
             const newData = { ...prev, [name]: value }
+            //Seta o state data mantendo os demais campo e alterando onde foi acionado o metodo
 
             return newData
         })
     }
 
     const handleDelete = (id) => {
-
+        // Função recebe o parametro id
         const result = listaItens.filter((obj) => obj.id !== id)
+        // result recebe o filtro de listaItens sem o obj que o id é igual ao passado no parametro
         setlistaItens(result)
 
 
@@ -75,8 +81,12 @@ export default function App() {
 
     const handleEdit = (id) => {
         const result = listaItens.filter((obj) => obj.id === id)
+        //Retorna o obj que o id é igual ao passado em parametro
+
 
         setData(
+            // Seta data passando a const result(q é um array), 
+            //o index 0 pq é o unico q foi retornado mais a propiedade
             {   id: result[0].id,
                 Titulo: result[0].Titulo,
                 Categoria: result[0].Categoria,
@@ -86,7 +96,8 @@ export default function App() {
     }
 
     const handleSave = () =>{
-        console.log("Editar")
+        
+        //implementar o update
 
         setData(
             {   id: '',
@@ -101,6 +112,7 @@ export default function App() {
 
 
     const calculateProress = () => {
+        //função q retorna um valor de acordo com a quantidade de campos preenchidos
 
         let value = 0;
         let amauntToAdd = 25;
@@ -156,7 +168,7 @@ export default function App() {
                     <input name="Descr" value={data.Descr} onChange={handleChange} />
                 </div>
                 <button onClick={data.id ? handleSave : handleClick} disabled={calculateProress() !== 100} >
-                   {data.id ? "Editar": "Salvar"}  
+                   {data.id ? "Editar": "Salvar"} 
                 </button>
             </main>
 
