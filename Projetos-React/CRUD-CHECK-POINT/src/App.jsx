@@ -149,7 +149,7 @@ export default function App() {
                 </div>
                 <div className='form-group'>
                     <label htmlFor=''>Data</label>
-                    <input name="Data" value={data.Data} onChange={handleChange} />
+                    <input type='date' name="Data" value={data.Data} onChange={handleChange} />
                 </div>
                 <div className='form-group'>
                     <label htmlFor=''>Descrição</label>
