@@ -26,6 +26,7 @@ Route::post('/newuser', function (Request $request) {
         'phone'=> $request-> phone
     ]);
      return view('welcome');
+    //  return $request;
 });
 
 Route::get('/userbyid/{idUser}', function ($idUser) {
@@ -43,8 +44,10 @@ Route::get('/edituser/{idUser}', function ($idUser) {
     return view('/editUser',['user'=>$User]);
   });
 
+
   Route::put('/updateuser/{idUser}', function (Request $info, $idUser) {
     $User = User::findOrFail($idUser);
+
      
     $User->name = $info->name;
     $User->phone = $info->phone;

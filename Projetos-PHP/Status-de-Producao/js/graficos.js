@@ -101,9 +101,10 @@ function retornaMetaDia(){
   $.post('graficos/graficoTabela.php',{data_inicio:data_inicio,data_final:data_final},function(result){
 
     var data = JSON.parse(result);
-              var carregadoEmBigbag = [];
-              var carregadoEmGranel = [];
-              var totalVeiculosCarregados = [];
+
+    var carregadoEmBigbag = [];
+    var carregadoEmGranel = [];
+    var totalVeiculosCarregados = [];
           
   
   
@@ -230,10 +231,10 @@ function graficoBar (datachegada, quantidade){
  
 
 
-  const labels = datachegada
+  // const labels = datachegada
 
     const data = {
-    labels: labels,
+    labels: datachegada,
     datasets: [{
         label: 'Meta diaria',
         backgroundColor: 'rgb(166, 249, 247)',
