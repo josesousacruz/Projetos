@@ -42,6 +42,7 @@
         
         $resultado_processoExcel = mysqli_query($conection , $result_processosExcel);
 		
+		//Pega o resultado das Query e monta o html
         while($row = mysqli_fetch_assoc($resultado_processoExcel)){
 			$html .= '<tr>';
 			$html .= '<td>'.$row["placa"].'</td>';
