@@ -6,7 +6,6 @@ session_start();
 ////////////////////////Registrar//////////////////////////
 if(isset($_POST['btnregistrar'])){
     
-    
 
     $dataBrasileira = $_POST['data_chegada'];
     // $dataAmericana = DateTime::createFromFormat('d/m/Y', $dataBrasileira);

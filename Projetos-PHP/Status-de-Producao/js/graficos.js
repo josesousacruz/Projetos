@@ -42,25 +42,21 @@ let datas = new Date()
      }
  }
 
- programadoMes = 13000;
+ programadoMes = 0;
 
 
-//  $('document').ready(function(){
-//   $.post('graficos/valorMetaMensal.php',function(result){
-//     var data = JSON.parse(result);
+ $('document').ready(function(){
+  $.post('graficos/valorMetaMensal.php',function(result){
+    var data = JSON.parse(result);
 
     
-//     // programadoMes.push(data[0].valorDaMeta);
+    // programadoMes.push(data[0].valorDaMeta);
 
-//     programadoMes = data[0].valorDaMeta;
-
-//     // console.log(data);
+    programadoMes = data[0].valorDaMeta;
 
 
-//   })
-
-
-// });
+  })
+});
 
  
 
@@ -82,10 +78,6 @@ function retornaMetaDia(){
    
    return programadoDia
 } 
-
-
-
-
 
 
 
@@ -116,7 +108,12 @@ function retornaMetaDia(){
                   
 
               }
-              tabelaInfo(carregadoEmBigbag,carregadoEmGranel, totalVeiculosCarregados,programadoMes)
+
+              setTimeout(() => {
+                tabelaInfo(carregadoEmBigbag,carregadoEmGranel, totalVeiculosCarregados,programadoMes)
+                
+              }, "1000");
+              
 
             })
 
@@ -145,9 +142,8 @@ function retornaMetaDia(){
                         
                       })
 
-////////////////////////
 
-
+                      ///
   
   })
 
@@ -181,8 +177,6 @@ function retornaMetaDia(){
 
   }
   
-
- 
 
 
   ////////////////////////////////////////////// GRAFICO BARRA/////////////////////////////////////////////////////////////////
@@ -231,7 +225,7 @@ function graficoBar (datachegada, quantidade){
  
 
 
-  // const labels = datachegada
+
 
     const data = {
     labels: datachegada,

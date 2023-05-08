@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/jogoss', 'JogosController@indexx');
-
+ 
 
 

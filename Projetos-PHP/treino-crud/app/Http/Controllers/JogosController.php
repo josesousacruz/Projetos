@@ -12,7 +12,7 @@ class JogosController extends Controller
         $jogos = Jogo::all();
 
         return view('jogos.index',['jogos'=>$jogos]);
-        return $jogos;
+        // return $jogos;
     
 
     }
@@ -42,7 +42,7 @@ class JogosController extends Controller
     {
         $jogo = Jogo::where('id',$id)->first();
 
-        return view('jogos.edit',['jogo'=>$jogo]);;
+        return view('jogos.edit',['jogo'=>$jogo]);
     }
 
     

@@ -143,11 +143,7 @@ while($retorno = mysqli_fetch_object($executeCarregados)){ ?>
      }else{
          $tempoCarregamento = $retorno->tempo_carregamento;
      };
-     
-
-
-
-
+    
     
     ?> 
     
@@ -203,18 +199,6 @@ while($retorno = mysqli_fetch_object($executeCarregados)){ ?>
                                 </table>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                         
