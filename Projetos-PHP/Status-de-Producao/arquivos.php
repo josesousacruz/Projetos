@@ -3,10 +3,6 @@ session_start();
 include('includes/header.php');
 include('includes/navbar.php');
 ?>
-
-
-
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 

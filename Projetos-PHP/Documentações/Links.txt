@@ -1,0 +1,10 @@
+
+https://laravel.com/docs/10.x/installation
+//Laravel
+
+
+https://jwt-auth.readthedocs.io/en/develop/quick-start/
+//Documentação do jwt auth
+
+https://spatie.be/docs/laravel-permission/v5/introduction
+//Documentação para o spatie - Laravel Permission/roles

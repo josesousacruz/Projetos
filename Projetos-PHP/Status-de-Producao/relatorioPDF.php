@@ -12,8 +12,6 @@ $html.= '<td>Especie</td>';
 $html.= '</tr>';
 $html.= '</thead>';
 
-// $results = "SELECT * FROM processos ORDER BY idOrdem ASC";
-// $execut = mysqli_query($conection,$results);
 
 
 while($row_result = mysqli_fetch_assoc($execute)){

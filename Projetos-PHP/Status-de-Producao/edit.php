@@ -16,7 +16,6 @@ include('includes/navbar.php');
 
         <?php 
 
-// $conection = mysqli_connect("localhost","root","","status_carregamento");
     
     if (isset($_POST['edit-btn'])) {
         $id = $_POST['edit-id'];
