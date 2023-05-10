@@ -1,28 +1,57 @@
 <?php 
-session_start(); 
 include("conexao.php");
 
+require_once '/xampp/htdocs/Projetos/Projetos-PHP/Status-de-Producao/login/jwt/BeforeValidException.php';
+require_once '/xampp/htdocs/Projetos/Projetos-PHP/Status-de-Producao/login/jwt/ExpiredException.php';
+require_once '/xampp/htdocs/Projetos/Projetos-PHP/Status-de-Producao/login/jwt/SignatureInvalidException.php';
+require_once '/xampp/htdocs/Projetos/Projetos-PHP/Status-de-Producao/login/jwt/JWT.php';
+
+use \Firebase\JWT\JWT;
 
 
-if(isset($_POST["email"]) && isset($_POST["senha"]) && $conexao != null){
+
+if(ISSET($_POST) && $conexao != null){
+
+$email = $_POST['email'];
+$senha = $_POST['senha'];
+
+$stmt = $conexao->prepare("SELECT * FROM usuarios WHERE email = :email ");
+$stmt->bindParam(':email', $email);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-$query = $conexao->prepare("SELECT * FROM usuarios WHERE email = ? AND senha = ?");
-$query->execute(array($_POST["email"],$_POST["senha"]));
+    if (password_verify($senha,$user['senha'])) {
+        //gerar o codigo jwt e redirecionar para pagina do usuario
 
-if($query->rowCount()){
-    $user = $query->fetchAll(PDO::FETCH_ASSOC)[0];
+        $key ='minhachave';
 
-    session_start();
-    $_SESSION["usuario"] = array($user["email"], $user["adm"]);
+        $payload = array(
+            'sub' => $user['id'],
+            'email' => $email['email'],
+            'usuario' => $usuario['usuario'],
+            'iat' => time(),
+            'exp' => time() + (60*60) //token experia em 1h
 
-     echo "<script>window.location = '../../index.php'</script>";
+        );
+
+        $jwt = JWT::encode($payload,$key,'');
+
+
+        // setcookie('token',$token,time() + (60*60),'/');
+
+        echo 'aaa';
+
+
+
+    } else {
+    
+    }
      
 
-}else{
-    echo "<script>window.location = '../login.html'</script>";
+    
 }
-}
+
 
 
     
