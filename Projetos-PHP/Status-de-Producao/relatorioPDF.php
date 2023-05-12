@@ -1,7 +1,7 @@
 <?php
 include('includes/config.php');
 
-$html= '<table border="1"  style="text-align: center;" width="100%" cellspacing="1">';
+$html= '<table border="1"  style="text-align: center;" width="100%" cellspacing="0">';
 $html.= '<thead>';
 $html.= '<tr>';
 $html.= '<td>Ordem</td>';
@@ -13,8 +13,10 @@ $html.= '</tr>';
 $html.= '</thead>';
 
 
+$sql = "SELECT idOrdem, placa, quantidade, produto, especie FROM processos WHERE status_carregamento <> 'Carregado'  ORDER BY idOrdem ASC";
+$execute = $conection->query($sql);
 
-while($row_result = mysqli_fetch_assoc($execute)){
+while($row_result = $execute->fetch(PDO::FETCH_ASSOC)){
     $html.= '<tbody>';
     $html.= '<tr><td>'.$row_result['idOrdem']."</td>";
     $html.= '<td>'.$row_result['placa']."</td>";
@@ -23,6 +25,7 @@ while($row_result = mysqli_fetch_assoc($execute)){
     $html.= '<td>'.$row_result['especie']."</td></tr>";
     $html.= '</tbody>';
 }
+
 
 $html .= '</table>';
 

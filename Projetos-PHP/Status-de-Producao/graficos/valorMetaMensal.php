@@ -3,19 +3,14 @@
  session_start();
 
 
-$arrayMeta = [];
-
-$sqlI = "SELECT valorDaMeta FROM metamensal";
-
-
-$executeI = $conection->query($sqlI) or die (mysqli_error($conection));
-   
-
-while($results = mysqli_fetch_object($executeI)){
-    array_push($arrayMeta,$results);
-    
-};
-
-echo json_encode($arrayMeta);
-
+ $arrayMeta = [];
+ $sqlI = "SELECT valorDaMeta FROM metamensal";
+ $stmt = $conection->prepare($sqlI);
+ $stmt->execute();
+ $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+ foreach($results as $row){
+     array_push($arrayMeta, $row);
+ }
+ echo json_encode($arrayMeta);
+ 
 ?>

@@ -5,12 +5,12 @@ session_start();
 
 ////////////////////////Registrar//////////////////////////
 if(isset($_POST['btnregistrar'])){
+
+
+    try {
     
-
     $dataBrasileira = $_POST['data_chegada'];
-    // $dataAmericana = DateTime::createFromFormat('d/m/Y', $dataBrasileira);
-    // $dataformat = $dataAmericana -> format('Y-m-d');
-
+ 
     $placa = $_POST['placa'];
     $transportadora = $_POST['transportadora'];
     $ordem = $_POST['ordem'];                       
@@ -30,17 +30,40 @@ if(isset($_POST['btnregistrar'])){
     $nf_venda = $_POST['nf_venda'];
 
 
-    $query = "INSERT INTO processos (data_chegada, placa, transportadora, ordem, produto,
-    especie, quantidade, status_carregamento, cif_fob, pedido, produtor,
+    $query = "INSERT INTO processos (data_chegada, placa, transportadora, ordem, 
+    produto, especie, quantidade, status_carregamento, cif_fob, pedido, produtor, 
     data_inicio, hora_inicio, data_fim, hora_fim, nf_inter, ticket, nf_venda) 
-    VALUES  ('".$dataBrasileira."','".$placa."','".$transportadora."','".$ordem."','".$produto."','".$especie."','".$quantidade."','".$status_carregamento."','".$cif_fob."','".$pedido."','".$produtor."','".$data_inicio."
-    ','".$hora_inicio."','".$data_fim."','".$hora_fim."','".$nf_inter."','".$ticket."','".$nf_venda."    ')";
-
+    VALUES (:data_chegada, :placa, :transportadora, :ordem, :produto, :especie, 
+    :quantidade, :status_carregamento, :cif_fob, :pedido, :produtor, :data_inicio, 
+    :hora_inicio, :data_fim, :hora_fim, :nf_inter, :ticket, :nf_venda)";
     
+    $stmt = $conection->prepare($query);
+    $stmt->bindParam(':data_chegada', $dataBrasileira);
+    $stmt->bindParam(':placa', $placa);
+    $stmt->bindParam(':transportadora', $transportadora);
+    $stmt->bindParam(':ordem', $ordem);
+    $stmt->bindParam(':produto', $produto);
+    $stmt->bindParam(':especie', $especie);
+    $stmt->bindParam(':quantidade', $quantidade);
+    $stmt->bindParam(':status_carregamento', $status_carregamento);
+    $stmt->bindParam(':cif_fob', $cif_fob);
+    $stmt->bindParam(':pedido', $pedido);
+    $stmt->bindParam(':produtor', $produtor);
+    $stmt->bindParam(':data_inicio', $data_inicio);
+    $stmt->bindParam(':hora_inicio', $hora_inicio);
+    $stmt->bindParam(':data_fim', $data_fim);
+    $stmt->bindParam(':hora_fim', $hora_fim);
+    $stmt->bindParam(':nf_inter', $nf_inter);
+    $stmt->bindParam(':ticket', $ticket);
+    $stmt->bindParam(':nf_venda', $nf_venda);
+    
+    $stmt->execute();
+    
+    
+} catch(PDOException $e) {
+    echo "Erro ao conectar ao banco de dados:" . $e->getMessage();
+}
 
-
-
-    $query_run = mysqli_query($conection, $query);
 
     if($query_run){
         $_SESSION['success'] = "Processo adicionado";
@@ -74,24 +97,47 @@ if(isset($_POST['updatebtn'])){
     $nf_inter = $_POST['edit_nf_inter'];
     $ticket = $_POST['edit_ticket'];
     $nf_venda = $_POST['edit_nf_venda'];
+
+
+
+ $query = "UPDATE processos SET  data_chegada=:data_chegada, placa=:placa,
+ transportadora=:transportadora, ordem=:ordem, produto=:produto, especie=:especie, quantidade=:quantidade,
+ status_carregamento=:status_carregamento, cif_fob=:cif_fob, pedido=:pedido,
+ produtor=:produtor, data_inicio =:data_inicio, hora_inicio=:hora_inicio, data_fim=:data_fim,
+ hora_fim=:hora_fim, nf_inter=:nf_inter, ticket=:ticket, nf_venda=:nf_venda WHERE id=:id ";
+    
+$stmt = $conection->prepare($query);
+$stmt->bindParam(':data_chegada', $data_chegada);
+$stmt->bindParam(':placa', $placa);
+$stmt->bindParam(':transportadora', $transportadora);
+$stmt->bindParam(':ordem', $ordem);
+$stmt->bindParam(':produto', $produto);
+$stmt->bindParam(':especie', $especie);
+$stmt->bindParam(':quantidade', $quantidade);
+$stmt->bindParam(':status_carregamento', $status_carregamento);
+$stmt->bindParam(':cif_fob', $cif_fob);
+$stmt->bindParam(':pedido', $pedido);
+$stmt->bindParam(':produtor', $produtor);
+$stmt->bindParam(':data_inicio', $data_inicio);
+$stmt->bindParam(':hora_inicio', $hora_inicio);
+$stmt->bindParam(':data_fim', $data_fim);
+$stmt->bindParam(':hora_fim', $hora_fim);
+$stmt->bindParam(':nf_inter', $nf_inter);
+$stmt->bindParam(':ticket', $ticket);
+$stmt->bindParam(':nf_venda', $nf_venda);
+$stmt->bindParam(':id', $id);
+    
+if ($stmt->execute()) {
+    $_SESSION['success'] = "Editado";
+    header('Location: index.php');
+} else {
+    $_SESSION['status'] = "ERRO";
+    header('index.php');
+}
+
     
 
-    $query = "UPDATE processos SET  data_chegada='$data_chegada', placa='$placa',
-     transportadora='$transportadora', ordem='$ordem', produto='$produto', especie='$especie', quantidade='$quantidade',
-     status_carregamento='$status_carregamento', cif_fob='$cif_fob', pedido='$pedido',
-    produtor='$produtor', data_inicio ='$data_inicio', hora_inicio='$hora_inicio', data_fim='$data_fim',
-    hora_fim='$hora_fim', nf_inter='$nf_inter', ticket='$ticket', nf_venda='$nf_venda' WHERE id='$id' ";
     
-    $query_run = mysqli_query($conection, $query);
-
-    if ($query_run) {
-        $_SESSION['success'] = "Editado";
-        header('Location: index.php');
-
-    }else{
-        $_SESSION['status'] = "ERRO";
-        header('index.php');
-    }
 };
 
 
@@ -101,8 +147,11 @@ if(isset($_POST['updatebtn'])){
 if (isset($_POST['btndelete'])) {
     $id = $_POST['delete_id'];
 
-    $query = "DELETE  FROM processos WHERE id ='$id' ";
-    $query_run = mysqli_query($conection, $query);
+    $query = "DELETE FROM processos WHERE id = :id";
+    $stmt = $conection->prepare($query);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
 
     if ($query_run) {
         $_SESSION['success'] = "Processo deletado";
@@ -119,12 +168,16 @@ if(isset($_POST['btnSalvar_metaMental'])){
 
     $meta = $_POST['metaMensal'];
 
-    $query = "UPDATE metamensal SET valorDaMeta = '$meta' ";
-    $query_run = mysqli_query($conection,$query);
+    $query = "UPDATE metamensal SET valorDaMeta = :meta";
+    $stmt = $conection->prepare($query);
+    $stmt->bindParam(':meta', $meta);
+
+    $query_run = $stmt->execute();
+
 
 
     if ($query_run) {
-        // $_SESSION['success'] = "Meta foi alterada";
+        $_SESSION['success'] = "Meta foi alterada";
         header('Location: charts.php');
     }else{
         $_SESSION['status'] = "FALHA AO ALTERAR META";

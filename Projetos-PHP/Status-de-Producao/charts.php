@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 include('includes/header.php');
 include('includes/navbar.php'); 
 ?>
@@ -99,7 +99,7 @@ include('includes/navbar.php');
                 <h6 class="m-0 font-weight-bold text-primary">Status mensal</h6>
                 <?php
 
-                    // if($_SESSION["usuario"][1] == 1){
+                    
 
                         
                         echo '<div><button type="button" class="btnMobile  btn btn-primary btn-sm" data-toggle="modal" data-target="#modalExemplo">
@@ -137,10 +137,7 @@ include('includes/navbar.php');
 
 
 
-                    // }elseif($_SESSION["usuario"][1] == 0){
-                        
-                    //   }
-                // echo '<input type="text">'
+            
                 
                 ?>
                 

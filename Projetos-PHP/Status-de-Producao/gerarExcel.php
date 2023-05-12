@@ -30,29 +30,25 @@
 		$html .= '</tr>';
 
 
-        $dataInicial =  $_POST['data_inicio'];
-        $dataFinal =  $_POST['data_final'];
-		
-		//Selecionar todos os itens da tabela 
-		$result_processosExcel = "SELECT *
-        FROM processos WHERE data_fim 
-        BETWEEN '$dataInicial' AND '$dataFinal'
-        AND status_carregamento = 'Carregado'
-        ORDER BY data_fim ASC";
-        
-        $resultado_processoExcel = mysqli_query($conection , $result_processosExcel);
-		
+		$dataInicial = $_POST['data_inicio'];
+		$dataFinal = $_POST['data_final'];
+
+		//Selecionar todos os itens da tabela
+		$query = "SELECT * FROM processos WHERE data_fim BETWEEN :dataInicial AND :dataFinal AND status_carregamento = 'Carregado' ORDER BY data_fim ASC";
+		$stmt = $conection->prepare($query);
+		$stmt->bindParam(':dataInicial', $dataInicial);
+		$stmt->bindParam(':dataFinal', $dataFinal);
+		$stmt->execute();
+
 		//Pega o resultado das Query e monta o html
-        while($row = mysqli_fetch_assoc($resultado_processoExcel)){
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$html .= '<tr>';
-			$html .= '<td>'.$row["placa"].'</td>';
-			$html .= '<td>'.$row["transportadora"].'</td>';
-			$html .= '<td>'.$row["ordem"].'</td>';
-			$html .= '<td>'.$row["produto"].'</td>';
+			$html .= '<td>' . $row["placa"] . '</td>';
+			$html .= '<td>' . $row["transportadora"] . '</td>';
+			$html .= '<td>' . $row["ordem"] . '</td>';
+			$html .= '<td>' . $row["produto"] . '</td>';
 			$html .= '</tr>';
-			;
 		}
-		
 
 
 
@@ -62,10 +58,10 @@
 
         
 		// Configurações header para forçar o download
-		header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-		header ("Cache-Control: no-cache, must-revalidate");
-		header ("Pragma: no-cache");
+		// header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+		// header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+		// header ("Cache-Control: no-cache, must-revalidate");
+		// header ("Pragma: no-cache");
 		header ("Content-type: application/x-msexcel");
 		header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
 		header ("Content-Description: PHP Generated Data" );

@@ -18,11 +18,16 @@ include('includes/navbar.php');
 
     
     if (isset($_POST['edit-btn'])) {
-        $id = $_POST['edit-id'];
-        $query = "SELECT * FROM processos WHERE id='$id' " ;
-        $query_run = mysqli_query($conection, $query);
+
+
         
-        foreach($query_run as $row){
+        $id = $_POST['edit-id'];
+
+        $stmt = $conection->prepare("SELECT * FROM processos WHERE id=:id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
             ?>
 
                     
@@ -100,12 +105,7 @@ include('includes/navbar.php');
                                 <option value="Carregado">Carregado</option>    
                             </select>
 
-
                             </div>
-
-
-
-
 
                             <div class="col-md-4 mb-3">
                                                         
@@ -199,7 +199,7 @@ include('includes/navbar.php');
         </div>
 
         <?php
-        }
+        
     }
 
     ?>

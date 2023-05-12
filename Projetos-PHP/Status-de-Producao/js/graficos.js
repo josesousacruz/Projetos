@@ -42,7 +42,7 @@ let datas = new Date()
      }
  }
 
- programadoMes = 0;
+ programadoMes = 0
 
 
  $('document').ready(function(){
@@ -50,8 +50,6 @@ let datas = new Date()
     var data = JSON.parse(result);
 
     
-    // programadoMes.push(data[0].valorDaMeta);
-
     programadoMes = data[0].valorDaMeta;
 
 
@@ -59,14 +57,6 @@ let datas = new Date()
 });
 
  
-
- 
-
-
-
-
-
-
 function retornaMetaDia(){
 
   let = programadoDia = []
@@ -75,7 +65,6 @@ function retornaMetaDia(){
        programadoDia.push(Math.round(programadoMes / qtdiaMes()))
    }
 
-   
    return programadoDia
 } 
 
@@ -111,8 +100,7 @@ function retornaMetaDia(){
 
               setTimeout(() => {
                 tabelaInfo(carregadoEmBigbag,carregadoEmGranel, totalVeiculosCarregados,programadoMes)
-                
-              }, "1000");
+              });
               
 
             })
@@ -208,8 +196,10 @@ $('document').ready(function(){
       dataArray.push(data[i].data_fim.split('-').reverse().join('/'))
   }
 
-
- graficoBar(dataArray, quantidadeArray )
+  setTimeout(() => {
+    graficoBar(dataArray, quantidadeArray )
+  }, "500");
+ 
 
 
 })
@@ -291,7 +281,11 @@ $('document').ready(function(){
         
     }
     
-    graficoPie(quantidadeProdMes)
+    setTimeout(() => {
+      graficoPie(quantidadeProdMes)
+    }, "500");
+
+    
 
     
 })
