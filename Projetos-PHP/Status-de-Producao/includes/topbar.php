@@ -16,6 +16,8 @@
     </div>
 </div>
 
+
+
     
     <!-- Nav Item - User Information -->
       <div class="nav-item dropdown no-arrow">
@@ -43,8 +45,13 @@
                 Encerrar
             </a>
         </div>
+
+        <?php 
+include('includes/modal.php');
+include('includes/modalChart.php'); 
+?>
+
+
       </div>
-
-
 
 </nav>

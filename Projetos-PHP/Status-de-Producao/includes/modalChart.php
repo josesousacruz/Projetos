@@ -1,46 +1,19 @@
-<?php 
-// session_start();
-include('includes/header.php');
-include('includes/navbar.php'); 
-?>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <?php 
-                include('includes/topbar.php');
-                ?>
-                <!-- End of Topbar -->
+ <!-- Modal -->
+ <div id="content-wrapper" class="d-flex flex-column">
+ <div class="modal fade bd-example-modal-xl" id="modalChart" tabindex="-1" role="dialog" aria-labelledby="modalChart" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="text-center" id="modalChart">DASHBOARDS</h5>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Fechar">
+          Fechar
+        </button>
+      </div>
+      <div class="modal-body">
 
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Grafico Mensal</h1> 
-
-                    
-
-                        <?php
-                        
-                        
-                        
-                        ?>
-
-
-                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>  -->
-                    </div>
-
-                </div>
-
-                <!-- /.container-fluid -->
-                <div class="card shadow mb-4 " >
+      <div class="card shadow mb-4 " >
                         <div class="card-body ">
                         
 <!-- Begin Page Content -->
@@ -51,37 +24,35 @@ include('includes/navbar.php');
 <!-- Content Row -->
 <div class="row">
 
-    <div class="col-xl-7 col-lg-9">
-
         <!-- Bar Chart -->
+        <div class="col-xl0 col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Produzido x Programado</h6>
             </div>
             <div class="card-body">
-                <div class="chart-area">
+                <div class="chart-area row d-flex justify-content-center">
 
-                     <!-- <canvas class="card shadow mb-6" height="166vh" id="myBarChart"></canvas> -->
+                     <canvas class="card shadow"id="myBarChart"></canvas>
 
                 </div>
                 <hr>
             </div>
         </div>
-
         </div>
 
+        <!-- </div> -->
+
         <!-- Pie Chart -->
-        <div class="col-xl-5 col-lg-12">
-        <div class="card shadow mb-4">
+        <div class="col-xl-4 col-lg-8">
+        <div class="card shadow mb-3">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Indice alcançado da meta mensal</h6>
             </div>
-            <div class="card-body">
-                <!-- <div class="chart-bar"> -->
-                <!-- width="330vh" height="330vh"  -->
-                    <!-- <canvas class="card shadow mb-8" height="246vh" id="myPieChart"></canvas> -->
+            <div class="card-body ">
+                
+                    <canvas class="card shadow" id="myPieChart"></canvas>
 
-                <!-- </div> -->
                 <hr>
             </div>
         </div>
@@ -89,10 +60,10 @@ include('includes/navbar.php');
     
     
     <!-- Donut Chart -->
-    <div class="col-xl-12 col-lg-9">
-        <div class="card shadow mb-4">
+    <div class="col-xl-8 col-lg-12">
+        <div class="card shadow mb-4" >
             <!-- Card Header - Dropdown -->
-            <div class="card-header py-3   d-sm-flex align-items-center justify-content-between">
+            <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Status mensal</h6>
                 <?php
 
@@ -107,8 +78,8 @@ include('includes/navbar.php');
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Meta mensal</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                    <span aria-hidden="true">&times;</span>
+                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Fechar">
+                                    Fechar
                                     </button>
                                 </div>
                                 <form action="code.php" method="POST">
@@ -121,9 +92,8 @@ include('includes/navbar.php');
                                 
                                 <div class="modal-footer">
                                     <input type="submit" id="btnSalvar_metaMental"  name="btnSalvar_metaMental" class="btn btn-primary" value="Salvar">
-                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        
                                 </div>
+
                                 </form>
                                 </div>
                             </div>
@@ -137,13 +107,12 @@ include('includes/navbar.php');
                 
             </div>
 
-            
-
+           
             <!-- Card Body -->
             <div class="card-body">
             
 
-                <div class="container">
+      <div class="container">
        <table class="table table-sm table-hover">
             
                 <tr>    
@@ -201,9 +170,6 @@ include('includes/navbar.php');
     </div>
 
 
-
-
-
                         
                         </div>
 
@@ -211,37 +177,5 @@ include('includes/navbar.php');
                         
                     </div>
 
-                </div>
-                <!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
-
-
-            </div>
-            <!-- End of Main Content -->
-
-
-           
-
-
-
-
-            
-<?php 
-
-
-include('includes/modal.php');
-include('includes/footer.php');
-
-
-?>
-
-
-<!-- <script src="js/graficos.js"></script> -->
-
-
-
-
-    
-
+                    </div>

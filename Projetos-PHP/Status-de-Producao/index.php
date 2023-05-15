@@ -83,10 +83,7 @@ include('includes/navbar.php');
 
                     </div>
                 </div>
-                            
-                <?php 
-                include('includes/modal.php');
-                ?>
+                  
                 <!-- /.container-fluid -->
                 <div class="card shadow mb-4" >
  

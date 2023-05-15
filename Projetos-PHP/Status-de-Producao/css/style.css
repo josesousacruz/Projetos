@@ -1,4 +1,6 @@
 
+
+
     .tabelaSmall{
         font-size: smaller;
     
@@ -9,7 +11,14 @@
     };
 
 @media (max-width:480px) {
-    
+
+    /* .chart-area{
+        width: 1200px;
+        margin: 0 auto;
+        height: 350px;
+        padding: 10px;
+        } */
+
 
     .fa-bars{
         color: rgb(247, 248, 249);

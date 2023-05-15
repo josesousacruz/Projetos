@@ -1,6 +1,4 @@
-
 let datas = new Date()
-
 
 
  let mes = String(datas.getMonth()+1)
@@ -42,7 +40,7 @@ let datas = new Date()
      }
  }
 
- programadoMes = 0
+var programadoMes = 0;
 
 
  $('document').ready(function(){
@@ -59,7 +57,7 @@ let datas = new Date()
  
 function retornaMetaDia(){
 
-  let = programadoDia = []
+  let programadoDia = []
 
    for(let i = 1; i <= qtdiaMes(); i++ ){
        programadoDia.push(Math.round(programadoMes / qtdiaMes()))
@@ -213,49 +211,42 @@ $('document').ready(function(){
 function graficoBar (datachegada, quantidade){
 
  
-
-
-
-
-    const data = {
+  const data = {
     labels: datachegada,
     datasets: [{
-        label: 'Meta diaria',
-        backgroundColor: 'rgb(166, 249, 247)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: retornaMetaDia()
-
+      label: 'Meta diaria',
+      backgroundColor: 'rgb(166, 249, 247)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: retornaMetaDia()
     },{
-
-        label: 'Executado',
-        backgroundColor: 'rgb(47,79,79)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: quantidade
-
-        
+      label: 'Executado',
+      backgroundColor: 'rgb(47,79,79)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: quantidade
     }],
-    
   };
-
+  
   const config = {
     type: 'bar',
     data: data,
     options: {
-      scales: {
-        yAxes: [{
-            ticks: {
-                max: 1000,
-                min: 0,
-                // stepSize: 50
-            }
-        }]
-      }
-    },
+      plugins:{
+        datalabels:{
+          align: 'end',
+          anchor: 'end',
+          formatter : (value, context) => {
+            return context.chart.data.datasets[context.datasetIndex].label + ': ' + value; 
+          }
+        }
+      } 
+    }
   };
-
-  const myChart = new Chart(
-    document.getElementById('myBarChart'), config );
   
+  const myChart = new Chart(
+    document.getElementById('myBarChart'), config
+  );
+  
+
 
 }
 

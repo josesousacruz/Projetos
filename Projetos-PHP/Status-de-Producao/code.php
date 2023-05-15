@@ -178,7 +178,7 @@ if(isset($_POST['btnSalvar_metaMental'])){
 
     if ($query_run) {
         $_SESSION['success'] = "Meta foi alterada";
-        header('Location: charts.php');
+        header('Location: index.php');
     }else{
         $_SESSION['status'] = "FALHA AO ALTERAR META";
         header('Location: index.php');
