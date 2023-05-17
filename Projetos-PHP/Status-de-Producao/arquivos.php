@@ -79,7 +79,7 @@ include('includes/navbar.php');
                             ?>
                             
                             <div class="table-responsive card shadow border-left-success">
-                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered table-hover" id="arquivosCarregamentos" width="100%" cellspacing="0">
                                 <thead>
                                         <tr class="text-center text-dark">
                                         <!-- <th>Ordem</th> -->
@@ -114,33 +114,31 @@ include('includes/navbar.php');
 
 <?php
 
+$sql = "SELECT *, TIMEDIFF(hora_fim,hora_inicio) AS tempo_carregamento FROM processos WHERE status_carregamento = 'Carregado' ORDER BY idOrdem ASC";
+$query = $conection->prepare($sql);
+$query->execute();
+$resultado = $query->fetchAll(PDO::FETCH_OBJ);
 
-
-while($retorno = mysqli_fetch_object($executeCarregados)){ ?>
-
-    <?php 
+foreach($resultado as $retorno){ 
+    
     $dataAmericana = $retorno->data_chegada;
-    
     $dataTimesTamp = strtotime($dataAmericana);
+    $dataBrasileira = date("d/m/Y", $dataTimesTamp);
 
-     $dataBrasileira = date("d/m/Y", $dataTimesTamp);
+    $dataInicioBr = $retorno->data_inicio;
+    $dataInicioBr = implode("/",array_reverse(explode("-",$dataInicioBr)));
 
-     $dataInicioBr = $retorno->data_inicio;
-     $dataInicioBr = implode("/",array_reverse(explode("-",$dataInicioBr)));
- 
-     $dataFimBR =  $retorno->data_fim;
-     $dataFimBR = implode("/",array_reverse(explode("-",$dataFimBR)));
- 
- 
-     $tempoCarregamento;
-     if($retorno->tempo_carregamento < 0){
-         $tempoCarregamento = "00:00:00";
-     }else{
-         $tempoCarregamento = $retorno->tempo_carregamento;
-     };
-    
-    
-    ?> 
+    $dataFimBR =  $retorno->data_fim;
+    $dataFimBR =implode("/",array_reverse(explode("-",$dataFimBR)));
+
+    $tempoCarregamento;
+    if($retorno->tempo_carregamento < 0){
+        $tempoCarregamento = "00:00:00";
+    }else{
+        $tempoCarregamento = $retorno->tempo_carregamento;
+    }
+
+?>
     
     <tr class="text-center bg-transparent text-dark tabelaSmall" id="<?php echo $retorno->id;?>">
     <!-- <td><?php echo $retorno->idOrdem;?>ª</td> -->

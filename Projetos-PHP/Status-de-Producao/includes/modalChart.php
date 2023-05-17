@@ -33,7 +33,7 @@
             <div class="card-body">
                 <div class="chart-area row d-flex justify-content-center">
 
-                     <canvas class="card shadow"id="myBarChart"></canvas>
+                <canvas class="card shadow"id="myBarChart"></canvas>
 
                 </div>
                 <hr>

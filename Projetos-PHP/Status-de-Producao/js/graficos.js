@@ -1,3 +1,4 @@
+
 let datas = new Date()
 
 
@@ -232,16 +233,20 @@ function graficoBar (datachegada, quantidade){
     options: {
       plugins:{
         datalabels:{
-          align: 'end',
-          anchor: 'end',
-          formatter : (value, context) => {
-            return context.chart.data.datasets[context.datasetIndex].label + ': ' + value; 
+          color:'green',
+          anchor:'end',
+          align: 'top',
+          offset: 2,
+          font:{
+            size:13,
+            weight:'arial'
           }
         }
-      } 
+      }
     }
   };
   
+  Chart.register(ChartDataLabels);
   const myChart = new Chart(
     document.getElementById('myBarChart'), config
   );
@@ -324,8 +329,22 @@ const data = {
       const config = {
         type: 'pie',
         data: data,
+        data: data,
+        options: {
+          plugins:{
+            datalabels:{
+              color:'white',
+              anchor:'center',
+              font:{
+                size:15,
+                weight:'bold'
+              }
+            }
+          }
+        }
       };
-    
+      
+      Chart.register(ChartDataLabels);
       const myChart = new Chart(
         document.getElementById('myPieChart'),
         config

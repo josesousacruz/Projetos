@@ -47,14 +47,18 @@
       <label for="ordem">Ordem de produção</label>
       <input type="text" class="form-control" name="ordem" id="ordem" placeholder="Informe a numeração da ordem de carregamento" required>
     </div>
+
     <div class="col-md-4 mb-3">
       <label for="produto">Produto</label>
-      <input type="text" class="form-control" name="produto" id="produto" placeholder="Informe o produto a ser carregado" required>
+      <select class="form-select" name="produto" id="produto">
+        <option value=""></option>
+        <option value=""></option>
+      </select>
     </div>
 
     <div class="col-md-4 mb-3">
       <label for="especie">Especie</label>
-          <select class="form-control" name="especie" id="especie" placeholder="Informe a especie do carregamento" required>
+          <select class="form-select" name="especie" id="especie" placeholder="Informe a especie do carregamento" required>
           <option value=""></option>
           <option value="BigBag">BigBag</option>
           <option value="Granel">Granel</option>
@@ -74,9 +78,9 @@
 
     <div class="col-md-4 mb-3">
       <label for="ordem">Status Carregamento</label>
-      <select name="status_carregamento" id="status_carregamento" class="form-control">
+      <select name="status_carregamento" id="status_carregamento" class="form-select">
         <option value=""></option>
-        <option value=" Pátio">Pátio</option>
+        <option value="Pátio">Pátio</option>
         <option value="Em carregamento">Em carregamento</option>
         <option value="Carregado">Carregado</option>
       </select>
@@ -84,7 +88,7 @@
 
     <div class="col-md-4 mb-3">
       <label for="cif_fob">CIF/FOB</label>
-      <select name="cif_fob" id="cif_fob" class="form-control">
+      <select name="cif_fob" id="cif_fob" class="form-select">
         <option value=""></option>
         <option value="CIF">CIF</option>
         <option value="FOB">FOB</option>
