@@ -227,6 +227,7 @@ function graficoBar (datachegada, quantidade){
     }],
   };
   
+  //configs do data labels
   const config = {
     type: 'bar',
     data: data,
@@ -246,7 +247,7 @@ function graficoBar (datachegada, quantidade){
     }
   };
   
-  Chart.register(ChartDataLabels);
+  Chart.register(ChartDataLabels); // importante
   const myChart = new Chart(
     document.getElementById('myBarChart'), config
   );
@@ -325,7 +326,7 @@ const data = {
   };
 
 
-    
+    //config datalabels
       const config = {
         type: 'pie',
         data: data,
@@ -344,6 +345,7 @@ const data = {
         }
       };
       
+      //importante
       Chart.register(ChartDataLabels);
       const myChart = new Chart(
         document.getElementById('myPieChart'),
