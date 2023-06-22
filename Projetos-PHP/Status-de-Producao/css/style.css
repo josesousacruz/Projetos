@@ -1,0 +1,31 @@
+
+    .tabelaSmall{
+        font-size: smaller;
+        /* font-size:0.85rem */
+    };
+
+    .placeholderBorder{
+        background-color: black;
+    };
+
+
+    div.container {
+        width: 80%;
+    }
+    
+
+
+@media (max-width:767px) {
+    
+
+    .fa-bars{
+        color: rgb(247, 248, 249);
+        background-color: aliceblue;
+    }
+
+
+
+}
+
+  
+  

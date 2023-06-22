@@ -1,0 +1,189 @@
+<nfeProc versao="4.00"
+    xmlns="http://www.portalfiscal.inf.br/nfe">
+    <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+        <infNFe Id="NFe24230512802844000135550010000015141768134357" versao="4.00">
+            <ide>
+                <cUF>24</cUF>
+                <cNF>76813435</cNF>
+                <natOp>Outra saida de mercadoria ou prestacao de servico</natOp>
+                <mod>55</mod>
+                <serie>1</serie>
+                <nNF>OP4119584</nNF>
+                <dhEmi>2023-05-03T14:05:33-03:00</dhEmi>
+                <tpNF>1</tpNF>
+                <idDest>1</idDest>
+                <cMunFG>2408805</cMunFG>
+                <tpImp>1</tpImp>
+                <tpEmis>1</tpEmis>
+                <cDV>7</cDV>
+                <tpAmb>1</tpAmb>
+                <finNFe>1</finNFe>
+                <indFinal>0</indFinal>
+                <indPres>9</indPres>
+                <indIntermed>0</indIntermed>
+                <procEmi>0</procEmi>
+                <verProc>009</verProc>
+            </ide>
+            <emit>
+                <CNPJ>12802844000135</CNPJ>
+                <xNome>NOVA ASA BRANCA II ENERGIA RENOV S.</xNome>
+                <xFant>NV ASA BRANCA II EN REN</xFant>
+                <enderEmit>
+                    <xLgr>FAZ VERA CRUZ-ESTRADA DA LAGOA DE VERA CRUZ</xLgr>
+                    <nro>S/N</nro>
+                    <xBairro>ZONA RURAL</xBairro>
+                    <cMun>2408805</cMun>
+                    <xMun>PARAZINHO</xMun>
+                    <UF>RN</UF>
+                    <CEP>59586000</CEP>
+                    <xPais>Brasil</xPais>
+                    <fone>4133314141</fone>
+                </enderEmit>
+                <IE>202409759</IE>
+                <CRT>3</CRT>
+            </emit>
+            <dest>
+                <CNPJ>17692901001166</CNPJ>
+                <xNome>GE ENERGIA RENOVAVEIS LTDA</xNome>
+                <enderDest>
+                    <xLgr>AVENIDA ANTONIO SEVERIANO DA CAMARA</xLgr>
+                    <nro>2010</nro>
+                    <xBairro>CENTRO</xBairro>
+                    <cMun>2405801</cMun>
+                    <xMun>JOAO CAMARA</xMun>
+                    <UF>RN</UF>
+                    <CEP>59550000</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>Brasil</xPais>
+                    <fone>1136127064</fone>
+                </enderDest>
+                <indIEDest>1</indIEDest>
+                <IE>204252229</IE>
+            </dest>
+        
+            <det nItem="1">
+                <prod>
+                    <cProd>WND15158-03-R</cProd>
+                    <cEAN>SEM GTIN</cEAN>
+                    <xProd>CONTROLE GALILEO CPU WAFER LX3 800 W R20 - REMANOFATURADO</xProd>
+                    <NCM>85371020</NCM>
+                    <CEST>2806300</CEST>
+                    <CFOP>5949</CFOP>
+                    <uCom>UN</uCom>
+                    <qCom>6.0000</qCom>
+                    <vUnCom>153.3000000000</vUnCom>
+                    <vProd>919.8</vProd>
+                    <cEANTrib>SEM GTIN</cEANTrib>
+                    <uTrib>UN</uTrib>
+                    <qTrib>3.0000</qTrib>
+                    <vUnTrib>51.1000000000</vUnTrib>
+                    <indTot>1</indTot>
+                </prod>
+                <imposto>
+                    <ICMS>
+                        <ICMS40>
+                            <orig>0</orig>
+                            <CST>40</CST>
+                            <vICMSDeson>38.33</vICMSDeson>
+                            <motDesICMS>90</motDesICMS>
+                        </ICMS40>
+                    </ICMS>
+                    <PIS>
+                        <PISOutr>
+                            <CST>49</CST>
+                            <vBC>0.00</vBC>
+                            <pPIS>0.0000</pPIS>
+                            <vPIS>0.00</vPIS>
+                        </PISOutr>
+                    </PIS>
+                    <COFINS>
+                        <COFINSOutr>
+                            <CST>49</CST>
+                            <vBC>0.00</vBC>
+                            <pCOFINS>0.0000</pCOFINS>
+                            <vCOFINS>0.00</vCOFINS>
+                        </COFINSOutr>
+                    </COFINS>
+                </imposto>
+                <infAdProd>Isento ou nao sujeito a ICMS</infAdProd>
+            </det>
+            <total>
+                <ICMSTot>
+                    <vBC>0.00</vBC>
+                    <vICMS>0.00</vICMS>
+                    <vICMSDeson>7249.73</vICMSDeson>
+                    <vFCP>0.00</vFCP>
+                    <vBCST>0.00</vBCST>
+                    <vST>0.00</vST>
+                    <vFCPST>0.00</vFCPST>
+                    <vFCPSTRet>0.00</vFCPSTRet>
+                    <vProd>919.80</vProd>
+                    <vFrete>0.00</vFrete>
+                    <vSeg>0.00</vSeg>
+                    <vDesc>0.00</vDesc>
+                    <vII>0.00</vII>
+                    <vIPI>0.00</vIPI>
+                    <vIPIDevol>0.00</vIPIDevol>
+                    <vPIS>0.00</vPIS>
+                    <vCOFINS>0.00</vCOFINS>
+                    <vOutro>0.00</vOutro>
+                    <vNF>919.80</vNF>
+                </ICMSTot>
+            </total>
+            <transp>
+                <modFrete>1</modFrete>
+            </transp>
+            <pag>
+                <detPag>
+                    <tPag>90</tPag>
+                    <vPag>0.00</vPag>
+                    <card>
+                        <tpIntegra>2</tpIntegra>
+                    </card>
+                </detPag>
+            </pag>
+            <infAdic>
+                <infCpl>Remessa de bens, partes ou pecas com defeito, nos termos do Ajuste SINIEF 15/2020 NF origem 1369 - 806 - 1062 Solicitacao: Barbara Pires</infCpl>
+            </infAdic>
+            <infRespTec>
+                <CNPJ>74544297000192</CNPJ>
+                <xContato>SAP PRODUCT ENGINEERING</xContato>
+                <email>RESPONSAVEL.TECNICO@SAP.COM</email>
+                <fone>00551155032400</fone>
+            </infRespTec>
+        </infNFe>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#NFe24230512802844000135550010000015141768134357">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>ETrt85m1ahdZlPatcmRGafXggiE=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>LIkxfukeAgkC7sYJyyRXcXExuJuhUFghvkyNGz85XxkW3FAv3i1OUYwoN3iwCSq0GB6khVWU9uWh9ylflp5Y2iYRaplw//vYuXSwKBI+fdWEQy2yyn04I80VL23CSlZbDYd/Sl4TXF2901aOMymOPSxR6ZVeVrfUHWQETK/5TS9HhOxox+HzHZlOvdRDKwNIYZx/BLvUT/hVEaWxWMztN0AGTDPSZ/njTmh2qk6v2CNgNyNX4BZejrPoQVhwYqMQzraHZRrMSw82hfKd1jfd68TAUp+EkWx+rp5i/RUKChtw+kZfKROkk2fPtmEd84ys61xxnPqKbvJsT3jLW+skqg==</SignatureValue>
+            <KeyInfo>
+                <X509Data>
+                    <X509Certificate>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</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </NFe>
+    <protNFe versao="4.00"
+        xmlns="http://www.portalfiscal.inf.br/nfe">
+        <infProt>
+            <tpAmb>1</tpAmb>
+            <verAplic>SVRS202304261131</verAplic>
+            <chNFe>24230512802844000135550010000015141768134357</chNFe>
+            <dhRecbto>2023-05-03T14:06:08-03:00</dhRecbto>
+            <nProt>324230010701654</nProt>
+            <digVal>ETrt85m1ahdZlPatcmRGafXggiE=</digVal>
+            <cStat>100</cStat>
+            <xMotivo>Autorizado o uso da NF-e</xMotivo>
+        </infProt>
+    </protNFe>
+</nfeProc>
