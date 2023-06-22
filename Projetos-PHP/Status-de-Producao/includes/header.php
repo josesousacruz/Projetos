@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="José Sousa">
 
-    <title>SEFI</title>
+    <title>ISEF</title>
     <!-- Arquivos do projeto -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
