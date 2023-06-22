@@ -29,8 +29,7 @@
 
     <!-- Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css"
@@ -143,7 +142,7 @@
 
         // Lidar com a mensagem do Service Worker
         navigator.serviceWorker.addEventListener('message', function (event) {
-            console.log('Mensagem do Service Worker recebida:', event.data);
+            // console.log('Mensagem do Service Worker recebida:', event.data);
 
             // Se a PWA já está instalada, esconder o modal
             if (event.data === 'alreadyInstalled') {

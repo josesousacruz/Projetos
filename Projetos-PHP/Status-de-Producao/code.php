@@ -17,7 +17,7 @@ if (isset($_POST['btnregistrar'])) {
     $produto = $_POST['id_produto'];
     $especie = $_POST['especie'];
     $quantidade = $_POST['quantidade'];
-    
+
     try {
         $query = "INSERT INTO carregamentos (idOrdem ,data_programado, placa, id_transportador, 
         id_produto, especie, quantidade, status_carregamento, cif_fob, n_pedido, produtor, motorista)
@@ -38,8 +38,8 @@ if (isset($_POST['btnregistrar'])) {
         $stmt->bindParam(':n_pedido', $pedido);
         $stmt->bindParam(':produtor', $cliente);
         $stmt->bindParam(':motorista', $motorista);
-        
-        
+
+
 
         $stmt->execute();
     } catch (PDOException $e) {
@@ -80,58 +80,70 @@ if (isset($_POST['updatebtn'])) {
     $ticket = $_POST['edit_ticket'];
     $nf_venda = $_POST['edit_nf_venda'];
     $ajust_peso = $_POST['ajust_peso'];
+    $user = $_POST['user_username'];
 
-    
+
     try {
-        // Verifica se o status é o primeiro quando o veiculo adentra ao terminal!
-    if($status_carregamento == 'Aguardando OP'){
 
-        $query = 'SELECT COUNT(*) FROM status_temp WHERE id_carregamentos=?';
-        $stmt = $conection->prepare($query);
-        $stmt->execute([$id]);
-        $results = $stmt->fetchColumn();
         
-        // Caso atenda, vai verificar se tem duplicidade na operação 
-        // E insere um registro na tabela status_temp onde vai ser registrado tds os horarios da operação
-        if($results == 0){
-            $query = "INSERT INTO status_temp (id_carregamentos, data_st_chegada_patio)
+        $query = 'INSERT INTO eventos (evento,data_evento,id_carregamento, usuario) 
+        VALUES (:evento,:data_evento,:id_carregamento,:usuario)';
+        $stmt2 = $conection->prepare($query);
+        $stmt2->bindValue(':evento','Editou');
+        $stmt2->bindValue(':data_evento', date('Y-m-d H:i:s'));
+        $stmt2->bindParam(':id_carregamento',$id);
+        $stmt2->bindParam(':usuario',$user);
+        $stmt2->execute();
+
+        // Verifica se o status é o primeiro quando o veiculo adentra ao terminal!
+        if ($status_carregamento == 'Aguardando OP') {
+
+            $query = 'SELECT COUNT(*) FROM status_temp WHERE id_carregamentos=?';
+            $stmt = $conection->prepare($query);
+            $stmt->execute([$id]);
+            $results = $stmt->fetchColumn();
+
+            // Caso atenda, vai verificar se tem duplicidade na operação 
+            // E insere um registro na tabela status_temp onde vai ser registrado tds os horarios da operação
+            if ($results == 0) {
+                $query = "INSERT INTO status_temp (id_carregamentos, data_st_chegada_patio)
         VALUES (:id_carregamentos, :data_st_chegada_patio)";
 
-        $stmt = $conection->prepare($query);
+                $stmt = $conection->prepare($query);
 
-        $stmt->bindParam(':id_carregamentos', $id);
-        $stmt->bindParam(':data_st_chegada_patio', $data_chegada);
+                $stmt->bindParam(':id_carregamentos', $id);
+                $stmt->bindParam(':data_st_chegada_patio', $data_chegada);
 
-        $stmt->execute();
+                $stmt->execute();
+            }
+
         }
-        
-    }
 
 
-    // Status e a coluna correspondente na tabela
-    $colunas = [
-        'Patio' => 'data_st_ag_op',
-        'Em carregamento' => 'data_st_inicio',
-        'Carregado' => 'data_st_carregado',
-        'Ajuste de peso' => 'data_st_ajus_peso',
-        'Liberado' => 'data_st_liberado',
-        'Aguardando NF' => 'data_st_aguard_NF'
-    ];
-    
-    // Faz a inserção na tabela de acordo com o status
-    if (isset($colunas[$status_carregamento])) {
-        $coluna = $colunas[$status_carregamento];
-        
-        $query = "UPDATE status_temp SET $coluna = :data WHERE id_carregamentos = :id";
-        $stmt = $conection->prepare($query);
-        
-        $stmt->bindParam(':id', $id);
-        $stmt->bindValue(':data', date('Y-m-d H:i:s'));
-        
-        $stmt->execute();
-    }
-    
-    
+        // Status e a coluna correspondente na tabela
+        $colunas = [
+            'Patio' => 'data_st_ag_op',
+            'Em carregamento' => 'data_st_inicio',
+            'Carregado' => 'data_st_carregado',
+            'Ajuste de peso' => 'data_st_ajus_peso',
+            'Liberado' => 'data_st_liberado',
+            'Aguardando NF' => 'data_st_aguard_NF'
+        ];
+
+        // Faz a inserção na tabela de acordo com o status
+        if (isset($colunas[$status_carregamento])) {
+            $coluna = $colunas[$status_carregamento];
+
+            $query = "UPDATE status_temp SET $coluna = :data WHERE id_carregamentos = :id";
+            $stmt = $conection->prepare($query);
+
+            $stmt->bindParam(':id', $id);
+            $stmt->bindValue(':data', date('Y-m-d H:i:s'));
+
+            $stmt->execute();
+        }
+
+
 
         $query = "UPDATE carregamentos SET  data_chegada=:data_chegada, placa=:placa,
         id_transportador=:id_transportador, ordemProd=:ordemProd, id_produto=:id_produto, especie=:especie, quantidade=:quantidade,
@@ -169,7 +181,7 @@ if (isset($_POST['updatebtn'])) {
         $stmt->bindParam(':doc_nf_venda', $caminhoNfVenda);
         $stmt->bindParam(':doc_nf_retorno', $caminhoNfRetorno);
         $stmt->bindParam(':doc_ticket', $caminhoTicket);
-        $stmt->bindParam('ajust_peso',$ajust_peso);
+        $stmt->bindParam('ajust_peso', $ajust_peso);
 
 
 
@@ -190,6 +202,7 @@ if (isset($_POST['updatebtn'])) {
             $caminhoDestinoTicket = "includes/documentos/doc_ticket/" . $nomeArquivoTicket;
             move_uploaded_file($_FILES['arquivoPdf_ticket']['tmp_name'], $caminhoDestinoTicket);
         }
+
     } catch (PDOException $e) {
         echo "Erro ao conectar ao banco de dados:" . $e->getMessage();
     }
@@ -217,19 +230,19 @@ if (isset($_POST['btndelete'])) {
 
     $query = 'SELECT status_carregamento FROM carregamentos WHERE id=:id';
     $stmt = $conection->prepare($query);
-    $stmt->execute(['id' =>$id]);
+    $stmt->execute(['id' => $id]);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if($results[0]['status_carregamento'] == 'Programado'){
+    if ($results[0]['status_carregamento'] == 'Programado') {
         $query = "DELETE FROM carregamentos WHERE id = :id";
         $stmt = $conection->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-    }else{
-        $query = 'UPDATE carregamentos SET status_carregamento = :status WHERE id = :id' ;
+    } else {
+        $query = 'UPDATE carregamentos SET status_carregamento = :status WHERE id = :id';
         $stmt = $conection->prepare($query);
         $stmt->bindValue(':status', 'Cancelado');
-        $stmt->bindParam(':id',$id);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
 

@@ -36,6 +36,7 @@ include('includes/navbar.php');
             <form action="code.php" method="POST" enctype="multipart/form-data">
 
                 <div class="form-row">
+                    <input type="hidden" name="user_username" value="<?php echo $user['username'] ?>">
                     <input type="hidden" name="edit_id" value="<?php echo $row['id'] ?>">
                     <div class="col-md-4 mb-3">
                         <label for="edit_data_chegada">Data de chegada</label>

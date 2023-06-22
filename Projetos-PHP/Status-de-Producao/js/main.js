@@ -10,19 +10,31 @@ $(function () {
     cursor: "move",
     update: function (event, ui) {
       var cad_id_item_list = $(this).sortable("toArray").toString();
+      var draggedItemId = ui.item.attr("id");
+
+      
 
       $.ajax({
         url: "ordenar.php",
         type: "POST",
-        data: { id: cad_id_item_list },
-        success: function (data) {},
+        data: { id: cad_id_item_list,
+        idUser: draggedItemId },
+        success: function (data) {
+          $.ajax({
+            url: "ordenar.php",
+            type: "POST",
+            data: { id: cad_id_item_list }
+          })
+        },
       });
     },
     start: function (event, ui) {
       $(ui.item).find("td").addClass("invisible");
+      
     },
     stop: function (event, ui) {
       $(ui.item).find("td").removeClass("invisible");
+      
     },
   });
 });
@@ -123,7 +135,7 @@ if (window.location.pathname === '/') {
     });
   });
 
-  // setTimeout(hideLoader(),8000)
+
 
 });
 
