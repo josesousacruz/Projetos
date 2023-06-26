@@ -12,18 +12,14 @@ $(function () {
       var cad_id_item_list = $(this).sortable("toArray").toString();
       var draggedItemId = ui.item.attr("id");
 
-      
 
       $.ajax({
-        url: "ordenar.php",
-        type: "POST",
-        data: { id: cad_id_item_list,
-        idUser: draggedItemId },
         success: function (data) {
           $.ajax({
             url: "ordenar.php",
             type: "POST",
-            data: { id: cad_id_item_list }
+            data: { id: cad_id_item_list,
+              idCarregamento: draggedItemId }
           })
         },
       });

@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Bahia');
 include('includes/config.php');
 include('includes/header.php');
 
@@ -28,6 +28,8 @@ $stmt = $conection->prepare($query);
 $stmt->bindValue(':evento','Ajustou ordem');
 $stmt->bindValue(':data_evento',date('Y-m-d H:i:s'));
 $stmt->bindParam(':id_carregamento',$idCarregamento);
-$stmt->bindParam(':usuario',$usuario)
+$stmt->bindParam(':usuario',$usuario);
+$stmt->execute();
+
 
 ?>
