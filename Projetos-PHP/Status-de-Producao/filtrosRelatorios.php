@@ -306,10 +306,6 @@ include('includes/footer.php');
                 var maxDate = $('#max-date').val();
                 var currentDate = formatDate(data[4]);
 
-                console.log(currentDate)
-                // console.log(minDate + 'min data')
-                // console.log(maxDate + ' max data')
-                // console.log(currentDate + 'current data')
 
                 if ((minDate === "" || maxDate === "") || (currentDate >= minDate && currentDate <= maxDate)) {
                     return true;
@@ -320,8 +316,6 @@ include('includes/footer.php');
 
             $('#min-date, #max-date').on('change', function () {
                 table.draw();
-                // console.log(minDate)
-                // console.log(maxDate)
 
             });
 

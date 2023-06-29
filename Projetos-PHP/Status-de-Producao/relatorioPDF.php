@@ -1,23 +1,14 @@
 <?php
 include('includes/config.php');
 
+$logoPath = 'includes/imagens/logo.png';
+
+$logoData = base64_encode(file_get_contents($logoPath));
+
 $html = '<html>
 <head>
+
 <style>
-    @page {
-        margin-top: 100px; /* Espaço para a imagem no cabeçalho */
-    }
-    #header {
-        position: fixed;
-        left: 0;
-        top: -100px; /* Altura da imagem */
-        right: 0;
-        height: 100px; /* Altura da imagem */
-        text-align: center;
-    }
-    #header img {
-        max-height: 100px; /* Altura da imagem */
-    }
     table {
         width: 100%;
         border-collapse: collapse;
@@ -26,11 +17,14 @@ $html = '<html>
         border: 1px solid black;
         text-align: center;
     }
+    thead {
+        background-color: rgb(184, 176, 176);
+    }
 </style>
 </head>
 <body>
 <div id="header">
-    <img src="https://gs.intermaritima.com.br/gs/giusoft/img_2.0/logo_pdf.jpg" />
+<img src="data:image/png;base64,' . $logoData . '" />
 </div>
 <h1 style="text-align: center;">Ordem de Carregamento</h1>
 <table>
@@ -38,9 +32,14 @@ $html = '<html>
 <tr>
 <td>Ordem</td>
 <td>Placa</td>
-<td>Quantidade</td>
+<td>Transportadora</td>
 <td>Produto</td>
-<td>Espécie</td>
+<td>Especie</td>
+<td>Quantidade</td>
+<td>Status</td>
+<td>CIF/FOB</td>
+<td>Pedido</td>
+<td>Cliente</td>
 </tr>
 </thead>
 <tbody>';
@@ -64,9 +63,16 @@ $execute = $conection->query($sql);
 while($row_result = $execute->fetch(PDO::FETCH_ASSOC)){
     $html .= '<tr><td>'.$row_result['idOrdem']."</td>";
     $html .= '<td>'.$row_result['placa']."</td>";
-    $html .= '<td>'.$row_result['quantidade']."</td>";
+    $html .= '<td>'.$row_result['nome_transportador']."</td>";
     $html .= '<td>'.$row_result['nome_produto']."</td>";
-    $html .= '<td>'.$row_result['especie']."</td></tr>";
+    $html .= '<td>'.$row_result['especie']."</td>";
+    $html .= '<td>'.$row_result['quantidade']."</td>";
+    $html .= '<td>'.$row_result['status_carregamento']."</td>";
+    $html .= '<td>'.$row_result['cif_fob']."</td>";
+    $html .= '<td>'.$row_result['n_pedido']."</td>";
+    $html .= '<td>'.$row_result['produtor']."</td>;
+    
+    </tr>";
 }
 
 $html .= '</tbody></table></body></html>';

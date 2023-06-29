@@ -60,31 +60,31 @@ $(document).ready(function () {
     pagingType: 'full_numbers',
     ordering: false,
     searching: true,
-    dom: "Bfrtip",
-    buttons: [
-      {
-        extend: "pdfHtml5",
-        exportOptions: {
-          columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        },
-        customize: function (doc) {
+    // dom: "Bfrtip",
+    // buttons: [
+    //   {
+    //     extend: "pdfHtml5",
+    //     exportOptions: {
+    //       columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    //     },
+    //     customize: function (doc) {
 
-          doc.content.splice(0,0,{
-            image: 'https://gs.intermaritima.com.br/gs/giusoft/img_2.0/logo_pdf.jpg',
-            width: 200, // Defina a largura da imagem conforme necessário
-            alignment: 'center',
-          })
+    //       doc.content.splice(0,0,{
+    //         image: 'https://gs.intermaritima.com.br/gs/giusoft/img_2.0/logo_pdf.jpg',
+    //         width: 200, // Defina a largura da imagem conforme necessário
+    //         alignment: 'center',
+    //       })
 
-          doc.content[0].text = "Relatorio de carregamentos";
-          doc.styles.tableHeader = {
-            color: "#FFFFFF",
-            fillColor: "#728A5F",
-            alignment: "center",
-          };
-        },
-      },
-      // "excel",
-    ],
+    //       doc.content[0].text = "Relatorio de carregamentos";
+    //       doc.styles.tableHeader = {
+    //         color: "#FFFFFF",
+    //         fillColor: "#728A5F",
+    //         alignment: "center",
+    //       };
+    //     },
+    //   },
+    //   "excel",
+    // ],
     language: {
       url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json",
     }
@@ -136,6 +136,10 @@ if (window.location.pathname === '/') {
 });
 
 $("#dataTable").on('init.dt', function() { 
+  hideLoader(); // Ocultar o indicador de carregamento
+});
+
+$("#dailyTable").on('init.dt', function() { 
   hideLoader(); // Ocultar o indicador de carregamento
 });
 
@@ -227,9 +231,12 @@ select.addEventListener('change', function(event) {
 });
   
 }
-if(select.value == 'Ajuste de peso'){
-  $('#modalExemplo').modal('show');
+if(window.location.href.includes('edit.php')){
+  if(select.value == 'Ajuste de peso'){
+    $('#modalExemplo').modal('show');
+  }
 }
+
 
 
 // adiciona o atributo required de acordo com o status

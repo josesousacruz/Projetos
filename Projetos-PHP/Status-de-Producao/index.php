@@ -4,8 +4,6 @@ include('includes/navbar.php');
 ?>
 
 
-
-
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -146,7 +144,8 @@ include('includes/navbar.php');
 
 
             </div>
-            <div class="card-body">
+            <!--class= "card-body" -->
+            <div class="">
                 <?php
 
                 if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
@@ -188,7 +187,7 @@ include('includes/navbar.php');
                                 <th>Status</th>
                                 <th>CIF/FOB</th>
                                 <th>Pedido</th>
-                                <th>Produtor</th>
+                                <th>Cliente</th>
                                 <th>Data Inicio</th>
                                 <th>Data fim</th>
                                 <th>Tempo de Carregamento</th>
@@ -347,21 +346,21 @@ include('includes/navbar.php');
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="deleteModalLabel">Confirmação de
-                                                                    exclusão</h5>
+                                                                    cancelamento</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <p>Deseja realmente excluir este item?</p>
+                                                                <p>Deseja realmente cancelar este carregamento?</p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cancelar</button>
+                                                                    data-bs-dismiss="modal">Voltar</button>
                                                                 <form action="code.php" method="POST">
                                                                     <input type="hidden" name="delete_id"
                                                                         value="<?php echo $retorno->id; ?>">
                                                                     <button type="submit" name="btndelete"
-                                                                        class="btn btn-danger">Excluir</button>
+                                                                        class="btn btn-danger">Cancelar</button>
                                                                 </form>
                                                             </div>
                                                         </div>

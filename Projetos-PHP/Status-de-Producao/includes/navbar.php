@@ -24,6 +24,12 @@
                     <span>Status</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="ocorrencias.php">
+                <i class="fa-solid fa-book"></i>
+                    <span>Ocorrencias</span></a>
+            </li>
+
              
 
             <!-- Divider -->
@@ -36,8 +42,8 @@
                        <!-- Nav Item - Charts -->
             <li class="nav-item" >
             <a class="nav-link" href="" data-toggle="modal" data-target="#modalChart">
-            
-            <i class="fas fa-fw fa-chart-area"></i>
+            <!-- fas fa-fw fa-chart-area -->
+            <i class="fa-solid fa-chart-pie"></i>
             <span>Dashboard Mensal</span></a>
             </li>
 

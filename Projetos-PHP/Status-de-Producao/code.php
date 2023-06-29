@@ -121,7 +121,8 @@ if (isset($_POST['updatebtn'])) {
 
 
         // Status e a coluna correspondente na tabela
-        $colunas = [
+        $colunas = 
+        [
             'Patio' => 'data_st_ag_op',
             'Em carregamento' => 'data_st_inicio',
             'Carregado' => 'data_st_carregado',
@@ -384,3 +385,5 @@ if (isset($_FILES['perfil_imagem'])) {
         header('index.php');
     }
 }
+
+

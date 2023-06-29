@@ -1,4 +1,4 @@
-<?php 
+<?php
 // ATIVAR DEBUG;
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             
             return $token;
           }
+
 
         $token = generateRandomToken(26);
         $expiry = time() + 3600 * 12;
@@ -77,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
-   
+
 
 </head>
 
