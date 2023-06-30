@@ -46,12 +46,41 @@ $("document").ready(function () {
   });
 });
 
+function getQuantidadeSegundasFeiras() {
+  const date = new Date();
+  const mes = date.getMonth();
+  let quantidade = 0;
+
+  for (let dia = 1; new Date(date.getFullYear(), mes, dia).getMonth() === mes; dia++) {
+    if (new Date(date.getFullYear(), mes, dia).getDay() === 1) {
+      quantidade++;
+    }
+  }
+
+  return quantidade;
+}
+
 function retornaMetaDia() {
   let = programadoDia = [];
 
+  // for (let i = 1; i <= qtdiaMes(); i++) {
+  //   programadoDia.push(Math.round(programadoMes / qtdiaMes()));
+  // }
+
+  let qtdSobra = (programadoMes / qtdiaMes() * 0.25) * getQuantidadeSegundasFeiras() / qtdiaMes()
+
+  var metaSegunda = Math.round(programadoMes / qtdiaMes() * 0.75); // Meta reduzida para segunda-feira
+  var metaOutros = Math.round(programadoMes / (qtdiaMes()) + qtdSobra ); // Meta para os demais dias
+  
+  
   for (let i = 1; i <= qtdiaMes(); i++) {
-    programadoDia.push(Math.round(programadoMes / qtdiaMes()));
+    var diaSemana = (new Date().getDay() + i - 1) % 7; 
+  
+    var metaDiaria = (diaSemana === 2) ? metaSegunda : metaOutros;
+    programadoDia.push(metaDiaria);
   }
+  
+  console.log(getQuantidadeSegundasFeiras());
 
   return programadoDia;
 }
@@ -288,11 +317,10 @@ function graficoPie(totalProduzido) {
   const saldoPendente = totalMetaMes - totalProduzido;
 
   ///////////////////////////Parte do grafico em tabela///////////////////////////////
-
   var labelPendente = document.createTextNode(saldoPendente);
   document.getElementById("saldoPendente").appendChild(labelPendente);
 
-  var necessidadeVeicuPdiaPobjetivo = document.createTextNode(
+  necessidadeVeicuPdiaPobjetivo = document.createTextNode(
     Math.round(saldoPendente / 50 / (qtdiaMes() - dia))
   );
   document
@@ -304,7 +332,7 @@ function graficoPie(totalProduzido) {
     labels: ["Total Meta", "Executado", "Saldo Pendente"],
     datasets: [
       {
-        label: "My First Dataset",
+        label: "Quantidade em ton",
         data: [totalMetaMes, totalProduzido, saldoPendente],
         backgroundColor: [
           "rgb(166, 249, 247)",

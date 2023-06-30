@@ -55,7 +55,11 @@ include('includes/navbar.php');
 
         <!-- Inicio da tabela -->
         <div class="card shadow border-left-warning">
-            <table class="table table-sm display nowrap table-bordered table-hover" style="width:100%" cellspacing="0" id="dailyTable">
+            <table class="table table-sm display nowrap table-bordered table-hover" style="width:100%" cellspacing="0"
+                id="dailyTable">
+                <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+                    <h6 class="m-0 font-weight-bold text-primary">Ocorrencias</h6>
+                </div>
                 <thead>
                     <tr class="text-center text-dark bg-light">
                         <th>Id</th>
@@ -72,9 +76,14 @@ include('includes/navbar.php');
             </table>
 
             <!-- class="collapse" id="collapseExample" -->
-            <div >
+            <div>
+
                 <div class="card card-body">
-                    <table class="table table-sm display nowrap" id="reldailyTable" >
+
+                    <table class="table table-sm display nowrap" id="reldailyTable">
+                        <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+                            <h6 class="m-0 font-weight-bold text-primary">Relatorio</h6>
+                        </div>
                         <thead>
                             <tr>
                                 <th>Manutenção preventiva</th>
@@ -249,17 +258,17 @@ include('includes/footer.php');
                 dataType: 'json',
                 dataSrc: 'data'
             },
-            columns: 
-            [
-                { data: 'manutPreventiva', title: 'Manutenção preventiva'},
-                { data: 'manutCorretiva', title: 'Manutenção corretiva' },
-                { data: 'limpRotina', title: 'Limpeza de rotina' },
-                { data: 'limpProduto', title: 'Limpeza troca de produto' },
-                { data: 'faltVeiculos', title: 'Falta de veiculos' },
-                { data: 'faltProgramacao', title: 'Falta de programação' },
-                { data: 'aguardOP', title: 'Aguardando OP' },
-                { data: 'total', title: 'Total' },
-            ],
+            columns:
+                [
+                    { data: 'manutPreventiva', title: 'Manutenção preventiva' },
+                    { data: 'manutCorretiva', title: 'Manutenção corretiva' },
+                    { data: 'limpRotina', title: 'Limpeza de rotina' },
+                    { data: 'limpProduto', title: 'Limpeza troca de produto' },
+                    { data: 'faltVeiculos', title: 'Falta de veiculos' },
+                    { data: 'faltProgramacao', title: 'Falta de programação' },
+                    { data: 'aguardOP', title: 'Aguardando OP' },
+                    { data: 'total', title: 'Total' },
+                ],
             responsive: true,
             paging: false,
             lengthChange: false,
@@ -329,7 +338,7 @@ include('includes/footer.php');
                 },
                 error: function () {
 
-                    alert ('Error no POST')
+                    alert('Error no POST')
                 }
             });
         });
@@ -378,7 +387,7 @@ include('includes/footer.php');
                 success: function (response) {
                     // Processar a resposta do servidor aqui
                     table.clear().rows.add(response.data).draw(); // Limpar a tabela e adicionar os novos dados
-                
+
                 },
                 error: function () {
                     // Tratar erros de requisição AJAX aqui
@@ -391,14 +400,14 @@ include('includes/footer.php');
                 url: 'graficos/ocorrenciasRel.php',
                 type: 'POST',
                 data: {
-                    'relatorio':'true',
+                    'relatorio': 'true',
                     'min-date': minDate,
                     'max-date': maxDate
                 },
                 dataType: 'json',
                 success: function (response) {
                     // Processar a resposta do servidor aqui
-                    reltable.clear().rows.add(response.data).draw(); 
+                    reltable.clear().rows.add(response.data).draw();
                 },
                 error: function () {
                     // Tratar erros de requisição AJAX aqui
