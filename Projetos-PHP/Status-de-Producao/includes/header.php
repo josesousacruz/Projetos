@@ -29,7 +29,9 @@
 
     <!-- Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js">
+    </script>
 
     <!-- Data table -->
     <link rel="stylesheet" type="text/css"
@@ -73,111 +75,109 @@
     ?>
 
     <script>
-
-
-        // Função para definir um cookie
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    // Função para definir um cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
         }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
 
-        // Função para obter o valor de um cookie
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(";");
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) === " ") c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
+    // Função para obter o valor de um cookie
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
         }
+        return null;
+    }
 
 
-        // Verifique se o navegador é compatível com a instalação
-        window.addEventListener('beforeinstallprompt', function (event) {
-            console.log('beforeinstallprompt acionado');
-            function isIos() {
-                const userAgent = window.navigator.userAgent.toLowerCase();
-                return /iphone|ipad|ipod/.test(userAgent) 
-                // && !window.MSStream;
-            }
-
-            // Seleciona o modal
-            var modal = document.getElementById('installModal');
-            var appRecused = getCookie('appRecused')
-
-            if (!appRecused && !isIos()) {
-                // Exibe o modal
-                $(modal).modal('show');
-            }
-            // Mantenha o evento para exibir o prompt de instalação mais tarde
-            event.preventDefault();
-
-
-
-            // Lidar com o evento de clique do botão "Instalar"
-            document.getElementById('btn-install').addEventListener('click', function () {
-                // Exibir o prompt de instalação
-                event.prompt();
-
-                $(modal).modal('hide');
-                // Aguardar a escolha do usuário
-                event.userChoice.then(function (choiceResult) {
-                    console.log('Escolha do usuário:', choiceResult.outcome);
-
-                    // Esconder o modal se a instalação for concluída
-                    if (choiceResult.outcome === 'accepted') {
-                        $(modal).modal('hide');
-                    }
-                });
-            });
-        });
-
-
-        // Lidar com a mensagem do Service Worker
-        navigator.serviceWorker.addEventListener('message', function (event) {
-            // console.log('Mensagem do Service Worker recebida:', event.data);
-
-            // Se a PWA já está instalada, esconder o modal
-            if (event.data === 'alreadyInstalled') {
-                $(modal).modal('hide');
-            }
-        });
-
+    // Verifique se o navegador é compatível com a instalação
+    window.addEventListener('beforeinstallprompt', function(event) {
+        console.log('beforeinstallprompt acionado');
 
         function isIos() {
             const userAgent = window.navigator.userAgent.toLowerCase();
-            return /iphone|ipad|ipod/.test(userAgent) && !window.MSStream;
+            return /iphone|ipad|ipod/.test(userAgent)
+            // && !window.MSStream;
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var appRecused = getCookie('appRecused')
+        // Seleciona o modal
+        var modal = document.getElementById('installModal');
+        var appRecused = getCookie('appRecused')
 
-            if (isIos()) {
-                var modal = document.getElementById('installModalIOS');
-                if (!appRecused) {
-                    // Exibe o modal
-                    $(modal).modal('show');
+        if (!appRecused && !isIos()) {
+            // Exibe o modal
+            $(modal).modal('show');
+        }
+        // Mantenha o evento para exibir o prompt de instalação mais tarde
+        event.preventDefault();
+
+
+
+        // Lidar com o evento de clique do botão "Instalar"
+        document.getElementById('btn-install').addEventListener('click', function() {
+            // Exibir o prompt de instalação
+            event.prompt();
+
+            $(modal).modal('hide');
+            // Aguardar a escolha do usuário
+            event.userChoice.then(function(choiceResult) {
+                console.log('Escolha do usuário:', choiceResult.outcome);
+
+                // Esconder o modal se a instalação for concluída
+                if (choiceResult.outcome === 'accepted') {
+                    $(modal).modal('hide');
                 }
-
-            }
+            });
         });
+    });
 
 
+    // Lidar com a mensagem do Service Worker
+    navigator.serviceWorker.addEventListener('message', function(event) {
+        // console.log('Mensagem do Service Worker recebida:', event.data);
 
-
-        function fecharModal() {
-            setCookie('appRecused', true, 15)
-            var modal = document.getElementById('installModal');
+        // Se a PWA já está instalada, esconder o modal
+        if (event.data === 'alreadyInstalled') {
             $(modal).modal('hide');
         }
+    });
 
+
+    function isIos() {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent) && !window.MSStream;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var appRecused = getCookie('appRecused')
+
+        if (isIos()) {
+            var modal = document.getElementById('installModalIOS');
+            if (!appRecused) {
+                // Exibe o modal
+                $(modal).modal('show');
+            }
+
+        }
+    });
+
+
+
+
+    function fecharModal() {
+        setCookie('appRecused', true, 15)
+        var modal = document.getElementById('installModal');
+        $(modal).modal('hide');
+    }
     </script>
 
 </head>
@@ -274,61 +274,61 @@
 
 
     <style>
-        .coin-image {
-            animation: spin-coin 1.5s linear infinite;
+    .coin-image {
+        animation: spin-coin 1.5s linear infinite;
+    }
+
+    @keyframes spin-coin {
+        0% {
+            transform: rotateY(0deg);
         }
 
-        @keyframes spin-coin {
-            0% {
-                transform: rotateY(0deg);
-            }
-
-            50% {
-                transform: rotateY(-180deg);
-            }
-
-            100% {
-                transform: rotateY(-360deg);
-            }
+        50% {
+            transform: rotateY(-180deg);
         }
 
+        100% {
+            transform: rotateY(-360deg);
+        }
+    }
 
-        .loader {
-            position: fixed;
-            left: 0px;
-            top: 0px;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.61);
+
+    .loader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.61);
+    }
+
+    /* Define as propriedades da animação */
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
         }
 
-        /* Define as propriedades da animação */
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+        to {
+            transform: rotate(360deg);
         }
+    }
 
+    /* Aplica a animação ao elemento */
+    .loading {
+        border: 16px solid #f3f3f3;
+        /* Adiciona uma borda ao elemento */
+        border-radius: 50%;
+        /* Arredonda as bordas do elemento */
+        border-top: 16px solid #3498db;
+        /* Adiciona cor à borda superior do elemento */
+        width: 80px;
+        /* Define o tamanho do elemento */
+        height: 80px;
+        /* Define o tamanho do elemento */
+        animation: spin 2s linear infinite;
         /* Aplica a animação ao elemento */
-        .loading {
-            border: 16px solid #f3f3f3;
-            /* Adiciona uma borda ao elemento */
-            border-radius: 50%;
-            /* Arredonda as bordas do elemento */
-            border-top: 16px solid #3498db;
-            /* Adiciona cor à borda superior do elemento */
-            width: 80px;
-            /* Define o tamanho do elemento */
-            height: 80px;
-            /* Define o tamanho do elemento */
-            animation: spin 2s linear infinite;
-            /* Aplica a animação ao elemento */
-        }
+    }
     </style>
 
 

@@ -5,7 +5,7 @@ $_SESSION = array();
 
 // Exclua o cookie de token, se estiver definido
 if (isset($_COOKIE["token"])) {
-    setcookie("token", "", time() - 3600, "/");
+    setcookie("token", "", time() - 3600 * 240, "/");
 }
 
 // Destrua a sessão

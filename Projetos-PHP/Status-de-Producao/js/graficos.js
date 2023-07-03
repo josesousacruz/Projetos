@@ -60,28 +60,34 @@ function getQuantidadeSegundasFeiras() {
   return quantidade;
 }
 
-function retornaMetaDia() {
+function retornaMetaDia(datachegada) {
   let = programadoDia = [];
 
   // for (let i = 1; i <= qtdiaMes(); i++) {
   //   programadoDia.push(Math.round(programadoMes / qtdiaMes()));
   // }
 
-  let qtdSobra = (programadoMes / qtdiaMes() * 0.25) * getQuantidadeSegundasFeiras() / qtdiaMes()
+  let qtdSobra = ((programadoMes / qtdiaMes()) * 0.25) * getQuantidadeSegundasFeiras() / qtdiaMes();
 
   var metaSegunda = Math.round(programadoMes / qtdiaMes() * 0.75); // Meta reduzida para segunda-feira
   var metaOutros = Math.round(programadoMes / (qtdiaMes()) + qtdSobra ); // Meta para os demais dias
   
+  for (let i = 0; i <= datachegada.length; i++) {
+    if (datachegada[i]) {
+      var dataFormatada = datachegada[i].split("/").reverse().join("-");
+      var date = new Date(dataFormatada);
+      var diaSemana = date.getDay();
+      
+      var metaDiaria = (diaSemana === 0) ? metaSegunda : metaOutros;
+      programadoDia.push(metaDiaria);
   
-  for (let i = 1; i <= qtdiaMes(); i++) {
-    var diaSemana = (new Date().getDay() + i - 1) % 7; 
-  
-    var metaDiaria = (diaSemana === 2) ? metaSegunda : metaOutros;
-    programadoDia.push(metaDiaria);
+      console.log(date);
+      console.log(dataFormatada);
+      console.log(diaSemana)
+    }
   }
   
-  console.log(getQuantidadeSegundasFeiras());
-
+  
   return programadoDia;
 }
 
@@ -126,7 +132,7 @@ $("document").ready(function () {
     }
   );
 
-  ///////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
 
   $.post(
     "graficos/metaProgramadaNaoExecut.php",
@@ -136,7 +142,8 @@ $("document").ready(function () {
 
       var metaProgramadaNaoExecutada = [];
 
-      for (let i in data) {
+      for (let i in data) 
+      {
         metaProgramadaNaoExecutada.push(data[i].metaProgramadaNaoExecutada);
       }
 
@@ -226,7 +233,7 @@ function graficoBar(datachegada, quantidade) {
         label: "Meta diaria",
         backgroundColor: "rgb(166, 249, 247)",
         borderColor: "rgb(255, 99, 132)",
-        data: retornaMetaDia(),
+        data: retornaMetaDia(datachegada),
       },
       {
         label: "Executado",
@@ -236,7 +243,6 @@ function graficoBar(datachegada, quantidade) {
       },
     ],
   };
-
   const config = {
     type: "bar",
     data: data,
@@ -260,6 +266,12 @@ function graficoBar(datachegada, quantidade) {
             } else {
               return dataIndex === 0 ? "auto" : "none"; // Exibe o rótulo apenas na primeira barra "programado"
             }
+          },
+          layout: {
+            padding: {
+              left: 50, // Espaçamento à esquerda
+              right: 50, // Espaçamento à direita
+            },
           },
           color: "green",
           anchor: "end",

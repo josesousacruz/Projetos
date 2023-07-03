@@ -131,6 +131,7 @@ include('includes/navbar.php');
                             <option value="Falta de veiculos">Falta de veiculos</option>
                             <option value="Falta de programação">Falta de programação</option>
                             <option value="Aguardando OP">Aguardando OP</option>
+                            <option value="Ajuste de peso">Ajuste de peso</option>
                         </select>
                     </div>
                     <div class="mb-3">

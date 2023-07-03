@@ -10,7 +10,7 @@
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
-        Produção
+        Operação
     </div>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -66,6 +66,9 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <div class="sidebar-heading">
+        Cadastros
+    </div>
     <!-- Nav Item - Pages Collapse Menu -->
     <?php
     if ($user['nivel_acesso'] >= 2) {

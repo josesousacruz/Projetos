@@ -2,7 +2,7 @@
  include('../includes/config.php');
  session_start();
 
-$dataInicial = $_POST['data_inicio'];
+$dataInicial =  $_POST['data_inicio'];
 $dataFinal = $_POST['data_final'];
 
 $arrayBar = [];

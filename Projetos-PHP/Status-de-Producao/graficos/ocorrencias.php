@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nextDay = date('Y-m-d', strtotime($currentDate . ' +1 day'));
 
     $query = 'SELECT *, TIMEDIFF(data_fim, data_inicio) AS tempo FROM ocorrencias WHERE data_inicio 
-    BETWEEN \'' . $currentDate . ' 07:00:00\' AND \'' . $nextDay . ' 07:00:00\' OR data_fim = "00-00-00 00:00:00"';
+    BETWEEN \'' . $currentDate . ' 00:00:00\' AND \'' . $nextDay . ' 00:00:00\' OR data_fim = "00-00-00 00:00:00"';
     $stmt = $conection->prepare($query);
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
