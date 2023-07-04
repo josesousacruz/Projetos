@@ -242,11 +242,11 @@ if(window.location.href.includes('edit.php')){
 // adiciona o atributo required de acordo com o status
 var elementos = {
   'Aguardando OP':['edit_data_chegada','inputPDFretorno'],
-  'Pátio': ['inputPDFretorno', 'edit_ordem'],
-  'Em carregamento': ['inputPDFretorno', 'edit_ordem', 'edit_data_inicio'],
-  'Carregado': ['inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim'],
-  'Ajuste de peso': ['inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim'],
-  'Cancelado': ['inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim']
+  'Patio': ['edit_data_chegada','inputPDFretorno', 'edit_ordem'],
+  'Em carregamento': ['edit_data_chegada','inputPDFretorno', 'edit_ordem', 'edit_data_inicio'],
+  'Carregado': ['edit_data_chegada','inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim'],
+  'Ajuste de peso': ['edit_data_chegada','inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim'],
+  'Cancelado': ['edit_data_chegada','inputPDFretorno', 'edit_ordem', 'edit_data_inicio', 'inputPDFticket', 'inputPDFvenda', 'edit_data_fim']
 };
 
 function toggleRequiredElements(status) {
