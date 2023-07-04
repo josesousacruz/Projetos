@@ -12,6 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['relatorio'] === 'true') {
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Falta de veiculos' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS faltVeiculos,
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Falta de programação' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS faltProgramacao,
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Aguardando OP' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS aguardOP,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Ajuste de peso' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS ajustPeso,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'DDS' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS dds,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Troca de turno' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS trocTurno,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Abastecimento de silo' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS abastSilo,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Intervalo' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS intervalo,
     SEC_TO_TIME(SUM(CASE WHEN data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS total
     FROM ocorrencias WHERE data_inicio BETWEEN '" . $currentDate . "' AND '" . $nextDay . "'";
 
@@ -43,6 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['relatorio'] === 'true') {
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Falta de veiculos' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS faltVeiculos,
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Falta de programação' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS faltProgramacao,
     SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Aguardando OP' AND data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS aguardOP,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Ajuste de peso' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS ajustPeso,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'DDS' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS dds,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Troca de turno' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS trocTurno,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Abastecimento de silo' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS abastSilo,
+    SEC_TO_TIME(SUM(CASE WHEN ocorrencia = 'Intervalo' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS intervalo,
     SEC_TO_TIME(SUM(CASE WHEN data_fim > '0000-00-00 00:00:00' THEN TIME_TO_SEC(TIMEDIFF(data_fim, data_inicio)) ELSE 0 END)) AS total
     FROM ocorrencias WHERE data_inicio BETWEEN '" . $currentDate . " 00:00:00' AND '" . $nextDay . " 00:00:00'";
 
