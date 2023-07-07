@@ -23,6 +23,18 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 
+<!-- Arquivo JavaScript do plugin ColReorder -->
+<script src="//cdn.datatables.net/colreorder/1.5.4/js/dataTables.colReorder.min.js"></script>
+
+<!-- Arquivo CSS do plugin ColReorder -->
+<link rel="stylesheet" href="//cdn.datatables.net/colreorder/1.5.4/css/colReorder.dataTables.min.css">
+
+<!-- Biblioteca xlsx -->
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+<!-- Biblioteca jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.js"></script>
 
 <!-- Custom scripts -->
 <script src="js/main.js"></script>

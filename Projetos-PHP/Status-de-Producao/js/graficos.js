@@ -80,10 +80,7 @@ function retornaMetaDia(datachegada) {
       
       var metaDiaria = (diaSemana === 0) ? metaSegunda : metaOutros;
       programadoDia.push(metaDiaria);
-  
-      console.log(date);
-      console.log(dataFormatada);
-      console.log(diaSemana)
+
     }
   }
   

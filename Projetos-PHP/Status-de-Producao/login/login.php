@@ -32,11 +32,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
           }
 
 
-        $token = generateRandomToken(26);
-        $expiry = time() + 3600 * 12;
 
-        $stmt = $conection->prepare("UPDATE usuarios SET token = :token, token_validade = :expiry WHERE id = :id");
-        $stmt->execute(['token' => $token, 'expiry' => $expiry, 'id' => $usuario['id']]);
+
+        if($usuario['token_validade'] < time()){
+            $token = generateRandomToken(26);
+            $expiry = time() + 3600 * 240;
+
+            $stmt = $conection->prepare("UPDATE usuarios SET token = :token, token_validade = :expiry WHERE id = :id");
+            $stmt->execute(['token' => $token, 'expiry' => $expiry, 'id' => $usuario['id']]);
+
+        }else{
+            $token = $usuario['token'];
+            $expiry = time() + 3600 * 240;
+        }
 
 
         setcookie("token", $token, $expiry, "/");
