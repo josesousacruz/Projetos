@@ -31,20 +31,20 @@ include('includes/navbar.php');
                 <div class="col-md-3 mb-3">
                     <label for="min-date">Data minima:</label>
                     <input type="date" id="min-date" name="min-date" class="form-control">
-                    
+
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="max-date">Data maxima:</label>
                     <input type="date" id="max-date" name="max-date" class="form-control">
                 </div>
-                
+
                 <div class="col-md-3 mb-3">
-                <?php
-                $sql = "SELECT * FROM produto;";
-                $query = $conection->prepare($sql);
-                $query->execute();
-                $resultados = $query->fetchAll(PDO::FETCH_ASSOC); ?>
-                <label class="mx-1 ml-3">Produto: </label>
+                    <?php
+                    $sql = "SELECT * FROM produto;";
+                    $query = $conection->prepare($sql);
+                    $query->execute();
+                    $resultados = $query->fetchAll(PDO::FETCH_ASSOC); ?>
+                    <label class="mx-1 ml-3">Produto: </label>
                     <select name="filterProduto" id="filterProduto" class="form-control form-select">
                         <option value="">Todas produtos</option>
                         <?php
@@ -53,7 +53,7 @@ include('includes/navbar.php');
                             <option value="<?php echo $valor['nome'] ?>"><?php echo $valor['nome'] ?></option>
                         <?php } ?>
                     </select>
-                    </div>
+                </div>
                 <div class="col-md-3 mb-3">
                     <label for="filterEspecie">Espécie:</label>
                     <select name="filterEspecie" id="filterEspecie" class="form-select">
@@ -170,7 +170,7 @@ include('includes/navbar.php');
                                 <td>
                                     <?php echo $retorno->quantidade; ?>
                                 </td>
-                                
+
                                 <td>
                                     <?php echo $retorno->cif_fob; ?>
                                 </td>
@@ -180,7 +180,7 @@ include('includes/navbar.php');
                                 <td>
                                     <?php echo $retorno->produtor; ?>
                                 </td>
-                                
+
                                 <td>
                                     <?php echo $retorno->nf_retorno; ?>
                                     <?php
@@ -225,13 +225,54 @@ include('includes/navbar.php');
             </table>
         </div>
         <!-- fim da tabela -->
+        <br>
+        <div class="container-fluid ">
+
+
+
+            <!-- Content Row -->
+            <div class="row">
+                <!-- Bar Chart -->
+                <div class="col-xl-6 col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Grafico barra</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas class="card shadow" id="myBarChartRelatorios"></canvas>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-6 col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Grafico pizza</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas class="card shadow" id="myPieChartRelatorio"></canvas>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
     </div>
 </div>
 
-
 </div>
-<!-- End of Main Content -->
-
 
 </div>
 <!-- End of Main Content -->
@@ -289,9 +330,9 @@ include('includes/footer.php');
                     };
                 }
             }, 'excel', 'csv', 'print'],
-    language: {
-      url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json",
-    }
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json",
+            }
         });
 
         $(document).ready(function () {
@@ -314,8 +355,45 @@ include('includes/footer.php');
                 return false;
             });
 
-            $('#min-date, #max-date').on('change', function () {
+            $('#max-date').on('change', function () {
+                var dataObjects = $("#filterTable").DataTable().rows().data().toArray();
+                var dataTermino = [];
+                var quantidades = [];
+                var dataQuantidades = {};
                 table.draw();
+
+                $("#filterTable").DataTable().rows({ search: "applied" }).nodes().each(function (row, index, dt) {
+                    var dataHora = dt.row(row).data()[4]; // Índice 4 contém a data de término e hora
+                    var data = dataHora.split(" ")[0]; // Extrai apenas a data
+                    var quantidade = parseInt(dt.row(row).data()[9]);
+
+                    if (dataQuantidades[data] === undefined) {
+                        dataQuantidades[data] = quantidade;
+                    } else {
+                        dataQuantidades[data] += quantidade;
+                    }
+                });
+
+                // Obter as datas únicas em ordem crescente
+                var dataTermino = Object.keys(dataQuantidades).sort(function (a, b) {
+                    var dateA = new Date(a);
+                    var dateB = new Date(b);
+                    return dateA - dateB;
+                });
+
+                // Obter as quantidades correspondentes às datas
+                var quantidades = dataTermino.map(function (data) {
+                    return dataQuantidades[data];
+                });
+
+                console.log(quantidades);
+                console.log(dataTermino);
+
+
+                graficoBarRelatorios(dataTermino, quantidades)
+
+                var qtd = 13000
+                graficoPieRelatorio(qtd)
 
             });
 
@@ -367,4 +445,128 @@ include('includes/footer.php');
 
         obterDados();
     });
+
+
+    function graficoBarRelatorios(datachegada, quantidade) {
+        const data = {
+            labels: datachegada,
+            datasets: [
+                //   {
+                //     label: "Meta diaria",
+                //     backgroundColor: "rgb(166, 249, 247)",
+                //     borderColor: "rgb(255, 99, 132)",
+                //     data: retornaMetaDia(datachegada),
+                //   },
+                {
+                    label: "Executado",
+                    backgroundColor: "rgb(47,79,79)",
+                    borderColor: "rgb(255, 99, 132)",
+                    data: quantidade,
+                },
+            ],
+        };
+        const config = {
+            type: "bar",
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true, // Inicia o eixo y em zero
+                        max: 800, // Define o valor máximo do eixo y
+                        stepSize: 20, // Define o intervalo entre os valores do eixo y
+                    },
+                },
+                plugins: {
+                    datalabels: {
+                        display: function (context) {
+                            // Verifica o índice do dataset para identificar a barra atual
+                            var dataIndex = context.dataIndex;
+                            var datasetIndex = context.datasetIndex;
+                            // Verifique se a barra atual é a barra "executado"
+                            if (datasetIndex === 0) {
+                                return "auto"; // Exibe o rótulo na barra "executado"
+                            } else {
+                                return dataIndex === 0 ? "auto" : "none"; // Exibe o rótulo apenas na primeira barra "programado"
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                left: 50, // Espaçamento à esquerda
+                                right: 50, // Espaçamento à direita
+                            },
+                        },
+                        color: "green",
+                        anchor: "end",
+                        align: "top",
+                        offset: 2,
+                        font: {
+                            size: 13,
+                            weight: "arial",
+                        },
+                    },
+                },
+            },
+        };
+
+        Chart.register(ChartDataLabels); // importante
+        const myChart = new Chart(document.getElementById("myBarChartRelatorios"), config);
+    }
+
+
+    function graficoPieRelatorio(totalProduzido) {
+        const totalMetaMes = programadoMes;
+
+        const saldoPendente = totalMetaMes - totalProduzido;
+
+        ///////////////////////////Parte do grafico em tabela///////////////////////////////
+        var labelPendente = document.createTextNode(saldoPendente);
+        document.getElementById("saldoPendente").appendChild(labelPendente);
+
+        necessidadeVeicuPdiaPobjetivo = document.createTextNode(
+            Math.round(saldoPendente / 50 / (qtdiaMes() - dia))
+        );
+        document
+            .getElementById("necessidadeVeicuPdiaPobjetivo")
+            .appendChild(necessidadeVeicuPdiaPobjetivo);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        const data = {
+            labels: ["Total Meta", "Executado", "Saldo Pendente"],
+            datasets: [
+                {
+                    label: "Quantidade em ton",
+                    data: [totalMetaMes, totalProduzido, saldoPendente],
+                    backgroundColor: [
+                        "rgb(166, 249, 247)",
+                        "rgb(47,79,79)",
+                        "rgb(255,228,181)",
+                        "rgb(0, 240, 220)", // Total meta
+                        "rgb(270,255,90)",
+                    ],
+                    //   hoverOffset: 4
+                },
+            ],
+        };
+
+        const config = {
+            type: "pie",
+            data: data,
+            options: {
+                plugins: {
+                    datalabels: {
+                        color: "White",
+                        anchor: "center",
+                        font: {
+                            size: 15,
+                            weight: "bold",
+                        },
+                    },
+                },
+            },
+        };
+
+        Chart.register(ChartDataLabels);
+        const myChart = new Chart(document.getElementById("myPieChartRelatorio"), config);
+    }
+
 </script>

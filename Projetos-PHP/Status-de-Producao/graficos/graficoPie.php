@@ -9,7 +9,7 @@ $arrayPie = [];
 
 $sql2 = "SELECT id, especie, status_carregamento, SUM(quantidade) AS produzidoTotal 
          FROM carregamentos WHERE data_fim BETWEEN :dataInicial AND :dataFinal 
-         AND status_carregamento = 'Liberado'";
+         AND status_carregamento in ('Liberado','Carregado','Ajuste de peso','Aguardando NF')";
 
 $stmt = $conection->prepare($sql2);
 $stmt->bindParam(':dataInicial', $dataInicial);

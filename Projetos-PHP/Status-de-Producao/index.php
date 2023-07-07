@@ -51,7 +51,7 @@ include('includes/navbar.php');
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Carros carregados(24h)</div>
+                                        Carros carregados no dia</div>
                                     <div id="qtdCarrosCarregados" class="h2 mb-0 font-weight-bold text-gray-800">
                                         <?php echo $numeroRegistros24h ?>
                                     </div>

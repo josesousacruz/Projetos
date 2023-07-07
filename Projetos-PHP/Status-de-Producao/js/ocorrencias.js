@@ -306,8 +306,6 @@ var columnsRel = [
   
   /////////////////////////////////Relatorio 3////////////////////////////////////////////
 var columnsRel = [
-    { title: "Intervalo", dataKey: "intervalo"},
-    { title: "Troca de produto", dataKey: "limpProduto"},
     { title: "Limpeza de Rotina", dataKey: "limpRotina"},
     { title: "Manutenção corretiva", dataKey: "manutCorretiva"},
     { title: "Manutenção precentiva", dataKey: "manutPreventiva"},

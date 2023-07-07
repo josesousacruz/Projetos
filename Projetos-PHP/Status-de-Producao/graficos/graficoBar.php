@@ -10,7 +10,7 @@ $arrayBar = [];
 $sqlI = "SELECT id, DATE_FORMAT(data_fim,'%d/%m/%Y') AS data_fim, especie, status_carregamento, SUM(quantidade) AS produzidoDia
          FROM carregamentos
          WHERE data_fim BETWEEN :dataInicial AND :dataFinal
-         AND status_carregamento = 'Liberado'
+         AND status_carregamento in ('Liberado','Carregado','Ajuste de peso','Aguardando NF')
          GROUP BY DATE(data_fim)";
 
 $stmtI = $conection->prepare($sqlI);

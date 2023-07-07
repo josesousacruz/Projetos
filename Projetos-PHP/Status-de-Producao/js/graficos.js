@@ -215,6 +215,8 @@ $("document").ready(function () {
         dataArray.push(data[i].data_fim.split("-").reverse().join("/"));
       }
 
+      // console.log(dataArray)
+      // console.log(quantidadeArray)
       setTimeout(() => {
         graficoBar(dataArray, quantidadeArray);
       }, "500");

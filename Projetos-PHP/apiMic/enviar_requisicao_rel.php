@@ -43,7 +43,8 @@ $context = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 
 if ($result === FALSE) {
-  echo 'Erro na requisição';
+   $error = error_get_last();
+   echo 'Erro na requisição: ' . $error['message'];
 } else {
   echo 'Resposta: ' . $result;
 }
