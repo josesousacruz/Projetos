@@ -55,6 +55,3 @@ buttonCopy.addEventListener("click", copy)
 const btnGerarSenha = document.getElementById("gerar")
 btnGerarSenha.addEventListener("click",generatePassword)
 
-
-//aciona a função sempre q a pagina é carregada
-generatePassword()
