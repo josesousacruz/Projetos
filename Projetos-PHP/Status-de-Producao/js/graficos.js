@@ -125,7 +125,7 @@ $("document").ready(function () {
           totalVeiculosCarregados,
           programadoMes
         );
-      });
+      },"500");
     }
   );
 
@@ -347,6 +347,8 @@ function graficoPie(totalProduzido) {
           "rgb(166, 249, 247)",
           "rgb(47,79,79)",
           "rgb(255,228,181)",
+          "rgb(0, 240, 220)", // Total meta
+          "rgb(270,255,90)",
         ],
         //   hoverOffset: 4
       },
@@ -359,7 +361,7 @@ function graficoPie(totalProduzido) {
     options: {
       plugins: {
         datalabels: {
-          color: "black",
+          color: "White",
           anchor: "center",
           font: {
             size: 15,
