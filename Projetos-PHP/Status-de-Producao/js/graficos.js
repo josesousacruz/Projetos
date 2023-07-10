@@ -117,7 +117,6 @@ $("document").ready(function () {
         carregadoEmGranel.push(data[i].carregadoEmGranel);
         totalVeiculosCarregados.push(data[i].totalVeiculosCarregados);
       }
-
       setTimeout(() => {
         tabelaInfo(
           carregadoEmBigbag,

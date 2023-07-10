@@ -1,14 +1,14 @@
 <?php
 
-$host="192.168.10.53";
-$user="root";
-$password="cablev35";
-$dbname="sefi";
-
-// $host="localhost";
+// $host="192.168.10.53";
 // $user="root";
-// $password="";
+// $password="cablev35";
 // $dbname="sefi";
+
+$host="localhost";
+$user="root";
+$password="";
+$dbname="sefi";
 
 
 try {

@@ -6,7 +6,7 @@
  
  $naoExecut = [];
  
- $sqlI = "SELECT SUM(CASE WHEN status_carregamento <> 'Liberado' THEN quantidade END) AS metaProgramadaNaoExecutada FROM carregamentos";
+ $sqlI = "SELECT SUM(CASE WHEN status_carregamento IN ('Programado','Patio','Aguardando OP') THEN quantidade END) AS metaProgramadaNaoExecutada FROM carregamentos";
  
  $executeI = $conection->query($sqlI);
  $naoExecut = $executeI->fetchAll(PDO::FETCH_OBJ);

@@ -49,7 +49,7 @@ include('includes/navbar.php');
                         <option value="">Todas produtos</option>
                         <?php
                         foreach ($resultados as $valor) {
-                            ?>
+                        ?>
                             <option value="<?php echo $valor['nome'] ?>"><?php echo $valor['nome'] ?></option>
                         <?php } ?>
                     </select>
@@ -136,7 +136,7 @@ include('includes/navbar.php');
                                 $tempoCarregamento = $retorno->tempo_carregamento;
                             }
 
-                            ?>
+                        ?>
 
                             <tr class="text-center text-dark tabelaSmall" id="<?php echo $retorno->id; ?>">
 
@@ -240,7 +240,7 @@ include('includes/navbar.php');
                         </div>
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas class="card shadow" id="myBarChartRelatorios"></canvas>
+                                <canvas class="card shadow h-100 w-100" id="myBarChartRelatorios"></canvas>
                             </div>
                             <hr>
                         </div>
@@ -255,7 +255,7 @@ include('includes/navbar.php');
                         </div>
                         <div class="card-body">
                             <div class="chart-area">
-                                <canvas class="card shadow" id="myPieChartRelatorio"></canvas>
+                                <canvas class="card shadow"  id="myPieChartRelatorio"></canvas>
                             </div>
                             <hr>
                         </div>
@@ -287,7 +287,7 @@ include('includes/footer.php');
 ?>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         // Função de filtragem por intervalo de datas
 
@@ -295,11 +295,11 @@ include('includes/footer.php');
         var table = $('#filterTable').DataTable({
             responsive: {
                 details: {
-                    renderer: function (api, rowIdx, columns) {
-                        var data = $.map(columns, function (col, i) {
+                    renderer: function(api, rowIdx, columns) {
+                        var data = $.map(columns, function(col, i) {
                             return col.hidden ?
                                 '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col
-                                    .columnIndex + '">' +
+                                .columnIndex + '">' +
                                 '<td>' + col.title + ':' + '</td> ' +
                                 '<td>' + col.data + '</td>' +
                                 '</tr>' :
@@ -321,7 +321,7 @@ include('includes/footer.php');
                 exportOptions: {
                     columns: [0, 1, 4, 5, 6, 7, 8, 9, 10, 11]
                 },
-                customize: function (doc) {
+                customize: function(doc) {
                     doc.content[0].text = 'Relatorio de carregamentos';
                     doc.styles.tableHeader = {
                         color: '#fafafa',
@@ -335,13 +335,13 @@ include('includes/footer.php');
             }
         });
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             function formatDate(date) {
                 var parts = date.split(' ')[0].split('/');
                 return parts[2] + '-' + parts[1] + '-' + parts[0];
             }
 
-            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
 
                 var minDate = $('#min-date').val();
                 var maxDate = $('#max-date').val();
@@ -355,97 +355,83 @@ include('includes/footer.php');
                 return false;
             });
 
-            $('#max-date').on('change', function () {
-                var dataObjects = $("#filterTable").DataTable().rows().data().toArray();
-                var dataTermino = [];
-                var quantidades = [];
-                var dataQuantidades = {};
-                table.draw();
-
-                $("#filterTable").DataTable().rows({ search: "applied" }).nodes().each(function (row, index, dt) {
-                    var dataHora = dt.row(row).data()[4]; // Índice 4 contém a data de término e hora
-                    var data = dataHora.split(" ")[0]; // Extrai apenas a data
-                    var quantidade = parseInt(dt.row(row).data()[9]);
-
-                    if (dataQuantidades[data] === undefined) {
-                        dataQuantidades[data] = quantidade;
-                    } else {
-                        dataQuantidades[data] += quantidade;
-                    }
-                });
-
-                // Obter as datas únicas em ordem crescente
-                var dataTermino = Object.keys(dataQuantidades).sort(function (a, b) {
-                    var dateA = new Date(a);
-                    var dateB = new Date(b);
-                    return dateA - dateB;
-                });
-
-                // Obter as quantidades correspondentes às datas
-                var quantidades = dataTermino.map(function (data) {
-                    return dataQuantidades[data];
-                });
-
-                console.log(quantidades);
-                console.log(dataTermino);
 
 
-                graficoBarRelatorios(dataTermino, quantidades)
+            $(document).on('change', '#max-date, #filterProduto, #filterEspecie', function() {
+                var selectedValue = $(this).val();
+                var id = $(this).attr('id');
 
-                var qtd = 13000
-                graficoPieRelatorio(qtd)
+                if (id === "max-date" || id === "filterProduto" || id === "filterEspecie") {
+                    var dataObjects = $("#filterTable").DataTable().rows().data().toArray();
+                    var dataTermino = [];
+                    var quantidades = [];
+                    var dataQuantidades = {};
+                    table.draw();
 
+
+                    $("#filterTable").DataTable().rows({
+                        search: "applied"
+                    }).nodes().each(function(row, index, dt) {
+                        var dataHora = dt.row(row).data()[4]; // Índice 4 contém a data de término e hora
+                        var data = dataHora.split(" ")[0]; // Extrai apenas a data
+                        var quantidade = parseInt(dt.row(row).data()[9]);
+
+                        if (dataQuantidades[data] === undefined) {
+                            dataQuantidades[data] = quantidade;
+                        } else {
+                            dataQuantidades[data] += quantidade;
+                        }
+                    });
+
+
+                    // Obter as datas únicas em ordem crescente
+                    var dataTermino = Object.keys(dataQuantidades).sort(function(a, b) {
+                        var dateA = new Date(a.split('/').reverse().join('/'));
+                        var dateB = new Date(b.split('/').reverse().join('/'));
+                        return dateA - dateB;
+                    });
+                    // Obter as quantidades correspondentes às datas
+                    var quantidades = dataTermino.map(function(data) {
+                        return dataQuantidades[data];
+                    });
+                    graficoBarRelatorios(dataTermino, quantidades)
+                    console.log(dataTermino)
+                    var qtd = 0
+                    quantidades.forEach(quantidade => {
+                        qtd += quantidade
+                    });
+                    graficoPieRelatorio(qtd)
+
+                } else if (id === "filterProduto") {
+                    table.column(7).search(selectedValue).draw();
+                } else if (id === "filterEspecie") {
+                    table.column(8).search(selectedValue).draw();
+                }
             });
+
 
         });
 
 
 
 
-        $('#filterProduto').on('change', function () {
+        $('#filterProduto').on('change', function() {
             var selectedValue = $(this).val();
             table.column(7).search(selectedValue).draw();
         });
 
 
-        $('#filterEspecie').on('change', function () {
+        $('#filterEspecie').on('change', function() {
             var selectedValue = $(this).val();
             table.column(8).search(selectedValue).draw();
         });
 
 
-        function obterDados() {
-            var dados = [];
 
-            table.rows({
-                filter: 'applied'
-            }).every(function () {
 
-                var placa = this.data()[1];
-                var produto = this.data()[9];
-                var quantidade = this.data()[6];
-                var data = this.data()[13];
-
-                var dado = {
-                    placa: placa,
-                    produto: produto,
-                    quantidade: quantidade,
-                    data: data
-                };
-
-                dados.push(dado);
-
-            });
-
-        }
-
-        table.on('draw.dt', function () {
-            obterDados();
-        });
-
-        obterDados();
     });
 
+    let myBarChartRelatorios;
 
     function graficoBarRelatorios(datachegada, quantidade) {
         const data = {
@@ -478,7 +464,7 @@ include('includes/footer.php');
                 },
                 plugins: {
                     datalabels: {
-                        display: function (context) {
+                        display: function(context) {
                             // Verifica o índice do dataset para identificar a barra atual
                             var dataIndex = context.dataIndex;
                             var datasetIndex = context.datasetIndex;
@@ -509,9 +495,14 @@ include('includes/footer.php');
         };
 
         Chart.register(ChartDataLabels); // importante
-        const myChart = new Chart(document.getElementById("myBarChartRelatorios"), config);
+
+        if (myBarChartRelatorios) {
+            myBarChartRelatorios.destroy();
+        }
+        myBarChartRelatorios = new Chart(document.getElementById("myBarChartRelatorios"), config);
     }
 
+    let myPieChartRelatorio
 
     function graficoPieRelatorio(totalProduzido) {
         const totalMetaMes = programadoMes;
@@ -531,21 +522,27 @@ include('includes/footer.php');
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         const data = {
-            labels: ["Total Meta", "Executado", "Saldo Pendente"],
-            datasets: [
-                {
-                    label: "Quantidade em ton",
-                    data: [totalMetaMes, totalProduzido, saldoPendente],
-                    backgroundColor: [
-                        "rgb(166, 249, 247)",
-                        "rgb(47,79,79)",
-                        "rgb(255,228,181)",
-                        "rgb(0, 240, 220)", // Total meta
-                        "rgb(270,255,90)",
-                    ],
-                    //   hoverOffset: 4
-                },
+            labels: [
+                "Total Meta",
+                "Executado",
+                // "Saldo Pendente"
             ],
+            datasets: [{
+                label: "Quantidade em ton",
+                data: [
+                    totalProduzido,
+                    totalMetaMes,
+                    // saldoPendente
+                ],
+                backgroundColor: [
+                    "rgb(166, 249, 247)",
+                    "rgb(47,79,79)",
+                    "rgb(255,228,181)",
+                    "rgb(0, 240, 220)", // Total meta
+                    "rgb(270,255,90)",
+                ],
+                //   hoverOffset: 4
+            }, ],
         };
 
         const config = {
@@ -566,7 +563,10 @@ include('includes/footer.php');
         };
 
         Chart.register(ChartDataLabels);
-        const myChart = new Chart(document.getElementById("myPieChartRelatorio"), config);
-    }
 
+        if (myPieChartRelatorio) {
+            myPieChartRelatorio.destroy();
+        }
+        myPieChartRelatorio = new Chart(document.getElementById("myPieChartRelatorio"), config);
+    }
 </script>

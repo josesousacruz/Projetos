@@ -10,7 +10,11 @@ $(document).ready(function () {
     columns: [
       { data: "id", title: "ID" },
       { data: "data_inicio", title: "Início" },
-      { data: "data_fim", title: "Término" },
+      {
+        data: "data_fim",
+        title: "Término",
+        className: "text-center",
+      },
       // {data: 'tempo', title: 'Tempo'},
       { data: "ocorrencia", title: "Ocorrência" },
       { data: "observacao", title: "Obs." },
@@ -27,6 +31,12 @@ $(document).ready(function () {
         },
       },
     ],
+    rowCallback: function(row, data, index) {
+      var dataFim = data.data_fim; 
+      if (dataFim <= '0000-00-00 00:00:00') {
+        $(row).addClass('bg-danger');
+      }
+    },
 
     responsive: true,
     paging: false,
@@ -249,7 +259,7 @@ async function gerarPDF() {
   var dataObjectsRel = $("#reldailyTable").DataTable().rows().data().toArray();
 
   console.log(dataObjectsRel);
-///////////////////////////Tabela principal///////////////////////////
+  ///////////////////////////Tabela principal///////////////////////////
   var columns = [
     { title: "Inicio", dataKey: "data_inicio" },
     { title: "Termino", dataKey: "data_fim" },
@@ -267,12 +277,12 @@ async function gerarPDF() {
   });
 
 
-///////////////////////////////////Relatorio 1////////////////////////////////////////
+  ///////////////////////////////////Relatorio 1////////////////////////////////////////
   var columnsRel = [
     { title: "Abastecimento Silo", dataKey: "abastSilo" },
     { title: "Aguardando OP", dataKey: "aguardOP" },
-    { title: "Ajuste de Peso", dataKey: "ajustPeso"},
-    { title: "DDS", dataKey: "dds"},
+    { title: "Ajuste de Peso", dataKey: "ajustPeso" },
+    { title: "DDS", dataKey: "dds" },
     { title: "Falta de Programação", dataKey: "faltProgramacao" },
   ];
 
@@ -285,11 +295,11 @@ async function gerarPDF() {
     columnStyles: {},
     headerStyles: {},
   });
-/////////////////////////////////Relatorio 2////////////////////////////////////////////
-var columnsRel = [
+  /////////////////////////////////Relatorio 2////////////////////////////////////////////
+  var columnsRel = [
     { title: "Falta de veiculos", dataKey: "faltVeiculos" },
-    { title: "Intervalo", dataKey: "intervalo"},
-    { title: "Troca de produto", dataKey: "limpProduto"},
+    { title: "Intervalo", dataKey: "intervalo" },
+    { title: "Troca de produto", dataKey: "limpProduto" },
     { title: "Falta de Programação", dataKey: "faltProgramacao" },
     { title: "Falta de veiculos", dataKey: "faltVeiculos" },
   ];
@@ -303,12 +313,12 @@ var columnsRel = [
     columnStyles: {},
     headerStyles: {},
   });
-  
+
   /////////////////////////////////Relatorio 3////////////////////////////////////////////
-var columnsRel = [
-    { title: "Limpeza de Rotina", dataKey: "limpRotina"},
-    { title: "Manutenção corretiva", dataKey: "manutCorretiva"},
-    { title: "Manutenção precentiva", dataKey: "manutPreventiva"},
+  var columnsRel = [
+    { title: "Limpeza de Rotina", dataKey: "limpRotina" },
+    { title: "Manutenção corretiva", dataKey: "manutCorretiva" },
+    { title: "Manutenção precentiva", dataKey: "manutPreventiva" },
   ];
 
   doc.autoTable(columnsRel, dataObjectsRel, {
