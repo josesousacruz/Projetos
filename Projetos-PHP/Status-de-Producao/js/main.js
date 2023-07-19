@@ -9,10 +9,8 @@ $(function () {
     ghostClass: "blue-background-class",
     cursor: "move",
     update: function (event, ui) {
-      var cad_id_item_list = $(this).sortable("toArray").toString();
-      var draggedItemId = ui.item.attr("id");
-
-
+      var cad_id_item_list = $(this).sortable("toArray").toString(); // Pega o array na ordem q foi definica com o evento
+      var draggedItemId = ui.item.attr("id"); // Pega o elemento q foi arrastado
       $.ajax({
         success: function (data) {
           $.ajax({
@@ -174,8 +172,13 @@ if (screenWidth <= 768) {
     element.id = "dataTable";
   }
 
-  filtro = document.getElementById('searchDiv')
+  filtro = document.getElementById('searchDiv');
   filtro.style.display = 'none'
+
+  canvasBarChart = document.getElementById('myBarChart');
+  // canvasBarChart.style.position = "center"
+  canvasBarChart.style.height = "100%"
+  canvasBarChart.style.width = "100%"
 
 }
 

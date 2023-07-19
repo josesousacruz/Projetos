@@ -36,7 +36,7 @@ include('includes/navbar.php');
                 <?php
                 $dataAtual = date("Y-m-d");
                 $sql = "SELECT COUNT(*) AS numeroRegistros24h FROM carregamentos 
-                WHERE status_carregamento = 'Liberado' AND DATE_FORMAT(data_fim,'%Y-%m-%d') = '$dataAtual';";
+                WHERE status_carregamento IN ('Liberado','Carregado','Aguardando NF','Ajuste de peso') AND DATE_FORMAT(data_fim,'%Y-%m-%d') = '$dataAtual';";
                 $stm = $conection->prepare($sql);
                 $stm->execute();
                 $resultado24h = $stm->fetch(PDO::FETCH_ASSOC);

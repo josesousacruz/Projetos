@@ -4,6 +4,8 @@ let mes = String(datas.getMonth() + 1);
 
 let dia = String(datas.getDate());
 
+let ano = String(datas.getFullYear());
+
 var primeiroDiaMeS = new Date(datas.getFullYear(), datas.getMonth(), 1);
 var ultimoDiaMes = new Date(datas.getFullYear(), datas.getMonth() + 1, 0);
 
@@ -39,13 +41,15 @@ let qtdiaMes = () => {
 programadoMes = 0;
 
 $("document").ready(function () {
-  $.post("graficos/valorMetaMensal.php", function (result) {
+
+  $.post("graficos/valorMetaMensal.php", {mes:mes,ano:ano}, function (result) {
     var data = JSON.parse(result);
 
-    programadoMes = data[0].valorDaMeta;
+      programadoMes = data[0].valorDaMeta;
+    
+    
   });
 });
-
 function getQuantidadeSegundasFeiras() {
   const date = new Date();
   const mes = date.getMonth();
@@ -63,10 +67,6 @@ function getQuantidadeSegundasFeiras() {
 function retornaMetaDia(datachegada) {
   let = programadoDia = [];
 
-  // for (let i = 1; i <= qtdiaMes(); i++) {
-  //   programadoDia.push(Math.round(programadoMes / qtdiaMes()));
-  // }
-
   let qtdSobra = ((programadoMes / qtdiaMes()) * 0.25) * getQuantidadeSegundasFeiras() / qtdiaMes();
 
   var metaSegunda = Math.round(programadoMes / qtdiaMes() * 0.75); // Meta reduzida para segunda-feira
@@ -77,14 +77,16 @@ function retornaMetaDia(datachegada) {
       var dataFormatada = datachegada[i].split("/").reverse().join("-");
       var date = new Date(dataFormatada);
       var diaSemana = date.getDay();
-      
+      var mes = date.getMonth() +1;
+      var ano = date.getFullYear();
+
+
       var metaDiaria = (diaSemana === 0) ? metaSegunda : metaOutros;
       programadoDia.push(metaDiaria);
 
     }
   }
-  
-  
+
   return programadoDia;
 }
 
@@ -214,8 +216,8 @@ $("document").ready(function () {
         dataArray.push(data[i].data_fim.split("-").reverse().join("/"));
       }
 
-      // console.log(dataArray)
-      // console.log(quantidadeArray)
+      console.log(dataArray)
+      console.log(quantidadeArray)
       setTimeout(() => {
         graficoBar(dataArray, quantidadeArray);
       }, "500");
@@ -260,9 +262,9 @@ function graficoBar(datachegada, quantidade) {
             var datasetIndex = context.datasetIndex;
             // Verifique se a barra atual é a barra "executado"
             if (datasetIndex === 0) {
-              return "auto"; // Exibe o rótulo na barra "executado"
+              return "none"; // Exibe o rótulo na barra "executado"
             } else {
-              return dataIndex === 0 ? "auto" : "none"; // Exibe o rótulo apenas na primeira barra "programado"
+              return dataIndex === 0 ? "none" : "none"; // Exibe o rótulo apenas na primeira barra "programado"
             }
           },
           layout: {
@@ -271,16 +273,17 @@ function graficoBar(datachegada, quantidade) {
               right: 50, // Espaçamento à direita
             },
           },
-          color: "green",
+          color: "#808080",
           anchor: "end",
           align: "top",
           offset: 2,
           font: {
-            size: 13,
+            size: 15,
             weight: "arial",
           },
         },
       },
+      barPercentage: 1.0,
     },
   };
 

@@ -103,6 +103,7 @@ include('includes/navbar.php');
                                 <th>Troca de turno</th>
                                 <th>Abastecimento</th>
                                 <th>Intervalo</th>
+                                <th>Outros</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
@@ -146,6 +147,7 @@ include('includes/navbar.php');
                             <option value="Troca de turno">Troca de turno</option>
                             <option value="Abastecimento do silo">Abastecimento do silo</option>
                             <option value="Intervalo">Intervalo</option>
+                            <option value="Outros">Outros</option>
                         </select>
                     </div>
                     <div class="mb-3">
