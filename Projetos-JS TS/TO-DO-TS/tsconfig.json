@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
-        "outDir": "./public/dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+      "target": "es5",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "outDir": "./dist",
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
     }
-}   
+  }
+  
