@@ -139,6 +139,36 @@ function closeModalAttMeta() {
   $("#modalChart").modal("hide");
 }
 
+// Desabilitar o button de editar caso a data de termino seja menor q a de inicio
+
+  var button = document.getElementById('updatebtn')
+  var dataI = document.getElementById('edit_data_inicio')
+  var dataT = document.getElementById('edit_data_fim')
+
+
+  function checkDateValidity() {
+    if (dataI.value && dataT.value) {
+      var timestampI = new Date(dataI.value).getTime();
+      var timestampT = new Date(dataT.value).getTime(); 
+
+      if (timestampI > timestampT) {
+        button.disabled = true;
+      } else {
+        button.disabled = false;
+      }
+    }
+  }
+
+  checkDateValidity();
+    
+  dataT.addEventListener("change", function (event) {
+    checkDateValidity();
+  });
+
+  dataI.addEventListener("change", function (event) {
+    checkDateValidity();
+  });
+
 
 // Habilitar o input apenas se o campo estiver valor
 function updateButtonState(inputId, buttonId) {
@@ -146,7 +176,7 @@ function updateButtonState(inputId, buttonId) {
   var button = document.getElementById(buttonId);
 
   if (input) {
-    if (input.value === "") {
+    if (input.value === ""){
       button.disabled = true;
     } else {
       button.disabled = false;

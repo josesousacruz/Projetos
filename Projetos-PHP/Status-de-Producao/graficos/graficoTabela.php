@@ -2,7 +2,7 @@
 include('../includes/config.php');
 
 $dataInicial = $_POST['data_inicio'];
-$dataFinal = $_POST['data_final'];
+$dataFinal = $_POST['data_final'].' 23:59:00';
 
 $arrayTabela = [];
 

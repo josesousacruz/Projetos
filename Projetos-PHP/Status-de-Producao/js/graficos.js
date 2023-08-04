@@ -41,21 +41,26 @@ let qtdiaMes = () => {
 programadoMes = 0;
 
 $("document").ready(function () {
-
-  $.post("graficos/valorMetaMensal.php", {mes:mes,ano:ano}, function (result) {
-    var data = JSON.parse(result);
+  $.post(
+    "graficos/valorMetaMensal.php",
+    { mes: mes, ano: ano, graficoModal: "graficoModal" },
+    function (result) {
+      var data = JSON.parse(result);
 
       programadoMes = data[0].valorDaMeta;
-    
-    
-  });
+    }
+  );
 });
 function getQuantidadeSegundasFeiras() {
   const date = new Date();
   const mes = date.getMonth();
   let quantidade = 0;
 
-  for (let dia = 1; new Date(date.getFullYear(), mes, dia).getMonth() === mes; dia++) {
+  for (
+    let dia = 1;
+    new Date(date.getFullYear(), mes, dia).getMonth() === mes;
+    dia++
+  ) {
     if (new Date(date.getFullYear(), mes, dia).getDay() === 1) {
       quantidade++;
     }
@@ -67,23 +72,23 @@ function getQuantidadeSegundasFeiras() {
 function retornaMetaDia(datachegada) {
   let = programadoDia = [];
 
-  let qtdSobra = ((programadoMes / qtdiaMes()) * 0.25) * getQuantidadeSegundasFeiras() / qtdiaMes();
+  let qtdSobra =
+    ((programadoMes / qtdiaMes()) * 0.25 * getQuantidadeSegundasFeiras()) /
+    qtdiaMes();
 
-  var metaSegunda = Math.round(programadoMes / qtdiaMes() * 0.75); // Meta reduzida para segunda-feira
-  var metaOutros = Math.round(programadoMes / (qtdiaMes()) + qtdSobra ); // Meta para os demais dias
-  
+  var metaSegunda = Math.round((programadoMes / qtdiaMes()) * 0.75); // Meta reduzida para segunda-feira
+  var metaOutros = Math.round(programadoMes / qtdiaMes() + qtdSobra); // Meta para os demais dias
+
   for (let i = 0; i <= datachegada.length; i++) {
     if (datachegada[i]) {
       var dataFormatada = datachegada[i].split("/").reverse().join("-");
       var date = new Date(dataFormatada);
       var diaSemana = date.getDay();
-      var mes = date.getMonth() +1;
+      var mes = date.getMonth() + 1;
       var ano = date.getFullYear();
 
-
-      var metaDiaria = (diaSemana === 0) ? metaSegunda : metaOutros;
+      var metaDiaria = diaSemana === 0 ? metaSegunda : metaOutros;
       programadoDia.push(metaDiaria);
-
     }
   }
 
@@ -126,7 +131,7 @@ $("document").ready(function () {
           totalVeiculosCarregados,
           programadoMes
         );
-      },"500");
+      }, "500");
     }
   );
 
@@ -140,8 +145,7 @@ $("document").ready(function () {
 
       var metaProgramadaNaoExecutada = [];
 
-      for (let i in data) 
-      {
+      for (let i in data) {
         metaProgramadaNaoExecutada.push(data[i].metaProgramadaNaoExecutada);
       }
 
@@ -156,9 +160,10 @@ function tabelaInfoMetaNaoExecut(metaProgramadaNaoExecutada) {
   var metaProgramadaNaoExecutadaa = document.createTextNode(
     metaProgramadaNaoExecutada
   );
-  document
-    .getElementById("metaProgramadaNaoExecutada")
-    .appendChild(metaProgramadaNaoExecutadaa);
+  var element = document.getElementById("metaProgramadaNaoExecutada");
+  if (element) {
+    element.appendChild(metaProgramadaNaoExecutadaa);
+  }
 }
 
 function tabelaInfo(
@@ -166,26 +171,42 @@ function tabelaInfo(
   carregadoEmGranel,
   totalVeiculosCarregados,
   programadoMes
-) {
+) {  
   var carregadoEmBigbag = document.createTextNode(carregadoEmBigbag);
-  document.getElementById("carregadoEmBigbag").appendChild(carregadoEmBigbag);
-
+  var element = document.getElementById("carregadoEmBigbag");
+  if (element) {
+    element.appendChild(carregadoEmBigbag);
+  } 
   var carregadoEmGranel = document.createTextNode(carregadoEmGranel);
-  document.getElementById("carregadoEmGranel").appendChild(carregadoEmGranel);
+  var element = document.getElementById("carregadoEmGranel");
+  if (element) {
+    element.appendChild(carregadoEmGranel);
+  }
+ 
 
   var totalVeiculosCarregados = document.createTextNode(
     totalVeiculosCarregados
   );
-  document
-    .getElementById("totalVeiculosCarregados")
-    .appendChild(totalVeiculosCarregados);
+  element = document.getElementById("totalVeiculosCarregados");
+  if (element) {
+    element.appendChild(totalVeiculosCarregados);
+  }
+    
 
   var labelMeta = document.createTextNode(programadoMes);
-  document.getElementById("totalMeta").appendChild(labelMeta);
+  element = document.getElementById("totalMeta")
+  if (element) {
+    element.appendChild(labelMeta);
 
+  }
+  
   var Metadia = programadoMes / qtdiaMes();
   var labelMeta = document.createTextNode(Math.round(Metadia));
-  document.getElementById("MetaDiaria").appendChild(labelMeta);
+  element = document.getElementById("MetaDiaria")
+  if (element) {
+    element.appendChild(labelMeta);
+  }
+  
 }
 
 ////////////////////////////////////////////// GRAFICO BARRA/////////////////////////////////////////////////////////////////
@@ -216,8 +237,6 @@ $("document").ready(function () {
         dataArray.push(data[i].data_fim.split("-").reverse().join("/"));
       }
 
-      console.log(dataArray)
-      console.log(quantidadeArray)
       setTimeout(() => {
         graficoBar(dataArray, quantidadeArray);
       }, "500");
@@ -331,14 +350,20 @@ function graficoPie(totalProduzido) {
 
   ///////////////////////////Parte do grafico em tabela///////////////////////////////
   var labelPendente = document.createTextNode(saldoPendente);
-  document.getElementById("saldoPendente").appendChild(labelPendente);
+  element = document.getElementById("saldoPendente");
+  if (element) {
+    element.appendChild(labelPendente);
+  }
+  
 
   necessidadeVeicuPdiaPobjetivo = document.createTextNode(
     Math.round(saldoPendente / 50 / (qtdiaMes() - dia))
   );
-  document
-    .getElementById("necessidadeVeicuPdiaPobjetivo")
-    .appendChild(necessidadeVeicuPdiaPobjetivo);
+  element = document.getElementById("necessidadeVeicuPdiaPobjetivo");
+  if (element) {
+    element.appendChild(necessidadeVeicuPdiaPobjetivo);
+  }
+    
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const data = {
