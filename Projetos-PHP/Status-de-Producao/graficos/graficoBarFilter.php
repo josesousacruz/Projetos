@@ -10,7 +10,7 @@ $arrayBar = [];
 $sqlI = "SELECT * ,SUM(quantidade) AS produzidoDia
 FROM carregamentos WHERE data_fim 
 BETWEEN :dataInicial AND :dataFinal
-AND status_carregamento = 'Carregado'
+AND status_carregamento in ('Liberado','Carregado','Ajuste de peso','Aguardando NF')
 GROUP BY data_fim ORDER BY data_fim ASC";
 
 $stmt = $conection->prepare($sqlI);

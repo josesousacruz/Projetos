@@ -68,6 +68,7 @@ $(document).ready(function () {
       { data: "trocTurno", title: "Troca de turno" },
       { data: "abastSilo", title: "Abastecimento" },
       { data: "intervalo", title: "Intervalo" },
+      { data: "outros", title: "Outros" },
       { data: "total", title: "Total" },
     ],
     responsive: true,
@@ -319,6 +320,7 @@ async function gerarPDF() {
     { title: "Limpeza de Rotina", dataKey: "limpRotina" },
     { title: "Manutenção corretiva", dataKey: "manutCorretiva" },
     { title: "Manutenção precentiva", dataKey: "manutPreventiva" },
+    { title: "Outros", dataKey: "outros" },
   ];
 
   doc.autoTable(columnsRel, dataObjectsRel, {

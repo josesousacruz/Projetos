@@ -85,14 +85,14 @@ if (isset($_POST['updatebtn'])) {
 
     try {
 
-        
+
         $query = 'INSERT INTO eventos (evento,data_evento,id_carregamento, usuario) 
         VALUES (:evento,:data_evento,:id_carregamento,:usuario)';
         $stmt2 = $conection->prepare($query);
-        $stmt2->bindValue(':evento','Editou');
+        $stmt2->bindValue(':evento', 'Editou');
         $stmt2->bindValue(':data_evento', date('Y-m-d H:i:s'));
-        $stmt2->bindParam(':id_carregamento',$id);
-        $stmt2->bindParam(':usuario',$user);
+        $stmt2->bindParam(':id_carregamento', $id);
+        $stmt2->bindParam(':usuario', $user);
         $stmt2->execute();
 
         // Verifica se o status é o primeiro quando o veiculo adentra ao terminal!
@@ -121,15 +121,15 @@ if (isset($_POST['updatebtn'])) {
 
 
         // Status e a coluna correspondente na tabela
-        $colunas = 
-        [
-            'Patio' => 'data_st_ag_op',
-            'Em carregamento' => 'data_st_inicio',
-            'Carregado' => 'data_st_carregado',
-            'Ajuste de peso' => 'data_st_ajus_peso',
-            'Liberado' => 'data_st_liberado',
-            'Aguardando NF' => 'data_st_aguard_NF'
-        ];
+        $colunas =
+            [
+                'Patio' => 'data_st_ag_op',
+                'Em carregamento' => 'data_st_inicio',
+                'Carregado' => 'data_st_carregado',
+                'Ajuste de peso' => 'data_st_ajus_peso',
+                'Liberado' => 'data_st_liberado',
+                'Aguardando NF' => 'data_st_aguard_NF'
+            ];
 
         // Faz a inserção na tabela de acordo com o status
         if (isset($colunas[$status_carregamento])) {
@@ -264,10 +264,26 @@ if (isset($_POST['btndelete'])) {
 if (isset($_POST['btnSalvar_metaMental'])) {
 
     $meta = $_POST['metaMensal'];
+    $mes = $_POST['mes'];
+    $ano = $_POST['ano'];
 
-    $query = "UPDATE metamensal SET valorDaMeta = :meta";
+    $query = "SELECT * FROM metamensal WHERE mes = :mes AND ano = :ano";
+    $stmt = $conection->prepare($query);
+    $stmt->bindParam(':mes', $mes);
+    $stmt->bindParam(':ano', $ano);
+    $stmt->execute();
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if ($resultado) {
+        $query = "UPDATE metamensal SET valorDaMeta = :meta WHERE mes = :mes AND ano = :ano";
+    } else {
+        $query = "INSERT INTO metamensal (valorDaMeta, mes, ano) VALUES (:meta, :mes, :ano)";
+    }
     $stmt = $conection->prepare($query);
     $stmt->bindParam(':meta', $meta);
+    $stmt->bindParam(':mes', $mes);
+    $stmt->bindParam(':ano', $ano);
     $stmt->execute();
 
     if ($stmt) {
@@ -385,5 +401,3 @@ if (isset($_FILES['perfil_imagem'])) {
         header('index.php');
     }
 }
-
-
